@@ -1,15 +1,21 @@
 using System.Collections;
 using UnityEngine;
 
+
+
 public class PlayerController : MonoBehaviour
 {
+    public static PlayerController instance;
+
     [Header("Referências internas")]
     private  PlayerAnimationController _playerAnimationController;
     private Rigidbody2D playerRig2D;
 
     [Header("Detecção do chão")]
-    public Transform detectaChao;
     public LayerMask whatIsGrounded;
+    public Transform chaoA;
+    public Transform chaoB;
+    [SerializeField] private float tamanhoRayCast = 0.05f;
 
     //objetos para detectar se esta na parede correta para grudar
     [Header("Configuração de movimentos")]
@@ -42,6 +48,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        ColidindoComChao();
         Movimentar();
         if (Input.GetButtonDown("Jump"))
         {
@@ -57,7 +64,9 @@ public class PlayerController : MonoBehaviour
     {
         horizontal = Input.GetAxis("Horizontal");
         playerRig2D.linearVelocityX = horizontal * velocidadePlayer * Time.deltaTime;
-        Correndo();
+
+        //Correndo();
+
         if (horizontal < 0 && olhandoDireita == false)
         {
             Flip();
@@ -67,7 +76,20 @@ public class PlayerController : MonoBehaviour
         {
             Flip();
         }
+
+        if (playerRig2D.linearVelocityX != 0)
+        {
+            isRun = true;
+
+        }
+        else
+        {
+            isRun = false;
+        }
+        _playerAnimationController.AnimacaoCorrer(isRun);
     }
+
+    //verifica se pode pular e utilizar o pulo duplo
     public void Pulando()
     {
         if (IsGrounded == true && IsJumping == false)
@@ -82,11 +104,19 @@ public class PlayerController : MonoBehaviour
         else if (isDoubleJumping == true)
         {
             playerRig2D.AddForce(Vector2.up * forcaPuloPlayer, ForceMode2D.Impulse);
-            _playerAnimationController.AnimacaoPuloDuplo();
+            StartCoroutine(PuloDuplo());
             isDoubleJumping = false;
         }
     }
+    
+    IEnumerator PuloDuplo()
+    {
+        yield return new WaitForEndOfFrame();
+        _playerAnimationController.AnimacaoPuloDuplo();
 
+    }
+
+    //verifica se esta caindo para ativar a animação de cair
     public void Caindo()
     {
         IsFalling = !IsGrounded && playerRig2D.linearVelocityY < 0.01f;
@@ -100,19 +130,8 @@ public class PlayerController : MonoBehaviour
             _playerAnimationController.AnimacaoCaindo(false);
         }
     }
-    public void Correndo()
-    {
-        if (playerRig2D.linearVelocityX != 0)
-        {
-            isRun = true;
 
-        }
-        else
-        {
-            isRun = false;
-        }
-        _playerAnimationController.AnimacaoCorrer(isRun);
-    }
+    //verifica se esta se movimentando para ativar a animação de correr
     //controla o lado que o player ira virar
     public void Flip()
     {
@@ -125,17 +144,29 @@ public class PlayerController : MonoBehaviour
 
         transform.localScale = new Vector3(x, transform.localScale.y, transform.localScale.z);
     }
-
-
-    private void OnCollisionEnter2D(Collision2D collision)
+    public void ColidindoComChao()
     {
-        if (collision.gameObject.layer == 6)
+        RaycastHit2D hit1 = Physics2D.Raycast(chaoA.position, Vector2.down, tamanhoRayCast, whatIsGrounded);
+        RaycastHit2D hit2 = Physics2D.Raycast(chaoB.position, Vector2.down, tamanhoRayCast, whatIsGrounded);
+        
+        // 1 << layer - verifica se o bit existe na minha layerMask
+        // & whatIsGrounded verifica se esse bit existe na minha mascara
+        // se for diferente de 0, então existe e é considerado chão
+        if (hit1.collider != null && ((1 << hit1.collider.gameObject.layer) & whatIsGrounded) != 0 || 
+            hit2.collider != null && ((1 << hit2.collider.gameObject.layer) & whatIsGrounded) != 0)
         {
-            print("Colidindo com o chão");
-            IsJumping = false;
-            IsFalling = false;
-            _playerAnimationController.AnimacaoCaindo(IsFalling);
+            IsGrounded = true;
         }
-      
+        else
+        {
+            IsGrounded = false;
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Color color = Color.red;
+        Debug.DrawLine(chaoA.position, chaoA.position+Vector3.down * tamanhoRayCast, color);
+        Debug.DrawLine(chaoB.position, chaoB.position+Vector3.down * tamanhoRayCast, color);
     }
 }
