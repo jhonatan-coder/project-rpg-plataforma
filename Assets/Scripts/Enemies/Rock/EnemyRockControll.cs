@@ -34,12 +34,14 @@ public class EnemyRockControll : MonoBehaviour
     {
         StopCoroutine(SubidaPedra());
         yield return new WaitForSeconds(2f);
+        areaDeAtaque.gameObject.SetActive(false);
         rig2D.gravityScale = flutuacaoDaPedra;
     }
     IEnumerator SubidaPedra()
     {
         StopCoroutine(QuedaPedra());
         yield return new WaitForSeconds(2f);
+        areaDeAtaque.gameObject.SetActive(true);
         rig2D.gravityScale = quedaDaPedra;
     }
 
@@ -56,6 +58,7 @@ public class EnemyRockControll : MonoBehaviour
         if (hit01.collider != null && ((1 << hit01.collider.gameObject.layer) & layerMaskChao) != 0)
         {
             StartCoroutine(QuedaPedra());
+
         }
         else if (hit02.collider != null && ((1 << hit02.collider.gameObject.layer) & layerMaskTeto) != 0)
         {

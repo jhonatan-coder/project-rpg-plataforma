@@ -37,26 +37,31 @@ public class ControleDeVidaDoPlayer : MonoBehaviour
             //Chama Game Over
         }
         print("Player tem apenas "+life+" vidas.");
-        PlayerPos.instance.LoadPositionPlayer();
+        CheckPointManager.instance.CarregarPosicao(PlayerController.instance.transform);
     }
 
     IEnumerator ResetaPlayer()
     {
-        if (_playerController == null)
-        {
-            _playerController = FindFirstObjectByType<PlayerController>();
-            if (_playerController == null)
-            {
-                Debug.LogError("PlayerController não encontrado");
-                yield break;
-            }
-        }
+        DesativaPlayer();
         print("Player desativado");
-        _playerController.gameObject.SetActive(false);
-        yield return new WaitForSeconds(2f);        
+        yield return new WaitForSeconds(2f);
+        AtivaPlayer();
         print("Player ativado");
-        _playerController.gameObject.SetActive(true);
 
     }
 
+    public void AtivaPlayer()
+    {
+        PlayerController.instance.GetComponent<SpriteRenderer>().enabled = true;
+        PlayerController.instance.GetComponent<CapsuleCollider2D>().isTrigger = false;
+        PlayerController.instance.GetComponent<Rigidbody2D>().gravityScale = 1;
+    }
+
+    public void DesativaPlayer()
+    {
+        PlayerController.instance.GetComponent<SpriteRenderer>().enabled = false;
+        PlayerController.instance.GetComponent<CapsuleCollider2D>().isTrigger = true;
+        PlayerController.instance.GetComponent<Rigidbody2D>().gravityScale = 0;
+        PlayerController.instance.GetComponent<Rigidbody2D>().linearVelocity = Vector2.zero;
+    }
 }
