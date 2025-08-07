@@ -37,10 +37,10 @@ public class MorteInimigos : MonoBehaviour
                 vidaInimigo = 0;
                 Destroy(_enemyControll.gameObject);
 
+
             }
         }
-    }
-       
+    }      
     
 
     IEnumerator TempoDeDano()

@@ -124,7 +124,7 @@ public class EnemyControll : MonoBehaviour
         }
     }
 
-    //vai identificar o player e logo após, vai atacá-lo
+    //Identifica o player e Ataca
     public void IdentificarPlayer()
     {
         //Essas três variaveis irão determinar o limite em que o player pode ser eprseguido
@@ -231,6 +231,7 @@ public class EnemyControll : MonoBehaviour
         
     }
     
+    //Captura automaticamente as posições pré estabelecida no jogo
     public void Inicializar(Transform[] pontos, Transform limiteEsquerdo, Transform limiteDireito)
     {
         posicoes = pontos;

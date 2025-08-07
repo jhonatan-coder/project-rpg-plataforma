@@ -32,7 +32,11 @@ public class EnemyTrunkController : MonoBehaviour
     private bool isMorreu;
     public LayerMask layerMask;
 
+    private bool inicializado = false;
+
     private EstadoDoInimigo estadoAtual;
+
+    [HideInInspector] public InstanciarInimigoTrunk instanciador;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -53,6 +57,10 @@ public class EnemyTrunkController : MonoBehaviour
 
         levandoDano = false;
         isMorreu = false;
+        if (posicoes != null && posicoes.Length > 0)
+        {
+            inicializado = true;
+        }
     }
 
     // Update is called once per frame
@@ -203,5 +211,12 @@ public class EnemyTrunkController : MonoBehaviour
         yield return new WaitForSeconds(intervaloDeAtaque);
         podeAtirar = true;
     }
-    
+
+
+    public void Inicializar(Transform[] pontos)
+    {
+        posicoes = pontos;
+        inicializado = true;
+    }
+
 }
