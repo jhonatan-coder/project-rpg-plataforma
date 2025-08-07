@@ -25,11 +25,9 @@ public class PlayerAnimationController : MonoBehaviour
     {
         anim.SetBool("isFalling", value);
     }
-    /*public void ControleDeAnimacaoAgarrarNaParede()
+
+    public void AnimacaoTomandoDano()
     {
-        if (instance.IsGrudando == true)
-        {
-            anim.SetBool("isGrudando", instance.IsGrudando);
-        }
-    }*/
+        anim.SetTrigger("isHit");
+    }
 }

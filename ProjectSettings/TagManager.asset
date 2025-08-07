@@ -5,6 +5,10 @@ TagManager:
   serializedVersion: 3
   tags:
   - Chao
+  - Enemy
+  - Municao
+  - EnemyPig
+  - EnemyTrunk
   layers:
   - Default
   - TransparentFX
@@ -14,8 +18,8 @@ TagManager:
   - UI
   - isGrounded
   - Parede
-  - 
-  - 
+  - inimigo
+  - Armadilha
   - 
   - 
   - 

@@ -14,7 +14,6 @@ public class CheckPointManager : MonoBehaviour
     public void SalvarPosicao(Vector3 novaPosicao)
     {
         ultimaPosicaoSalva = novaPosicao;
-        Debug.Log("Checkpoint atualizado para: " + novaPosicao);
     }
 
     public void CarregarPosicao(Transform player)

@@ -6,23 +6,37 @@ public enum EstadoDoInimigo
 {
     Patrulhando,
     Perseguindo,
+    Atacando,
     Esperando
 }
 
 
 public class EnemyControll : MonoBehaviour
 {
-    public static EnemyControll instance;
     private EnemyAnimations enemyAnim;
-
     private PlayerController _playerController;
-    public GameObject inimigo;
+    private Rigidbody2D inimigo;
+
+    //private MorteInimigos _morteInimigos;
 
     public Transform rayCastLine;
     public Transform[] posicoes;
 
+    public Transform areaDeDano;
+
+    public float visaoDoInimigo;
+
+    public float vidaInimigo;
+
+
+    //limita até o ponto em que pode seguir o player
+    public Transform limiteCantoDireito;
+    public Transform limiteCantoEsquerdo;
     public float velocidadeInimigo;
 
+    //Acerto ataque prefabDoInimigo
+    public Transform areaAtaque;
+    public float tamanhoAreaAtaque;
     private int indiceDestinoAtual;
     public LayerMask layerPlayer;
 
@@ -30,29 +44,39 @@ public class EnemyControll : MonoBehaviour
     private bool inimigoCaminhando;
     private bool inimigoCorrendo;
 
-    private bool inimigoAcertado = false;
+    private bool inicializado = false;
 
     private EstadoDoInimigo estadoAtual;
 
-    public bool InimigoAcertado { get => inimigoAcertado; set => inimigoAcertado = value; }
-
-
+    [HideInInspector] public InstanciarInimigo instanciador;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+       
 
         _playerController = FindFirstObjectByType<PlayerController>();
         enemyAnim = GetComponentInChildren<EnemyAnimations>();
+        inimigo = GetComponent<Rigidbody2D>();
         estadoAtual = EstadoDoInimigo.Patrulhando;
         indiceDestinoAtual = 1;
         inimigoCaminhando = true;
         inimigoCorrendo = false;
+
+        if (limiteCantoDireito != null && limiteCantoEsquerdo != null && posicoes != null && posicoes.Length > 0)
+        {
+            inicializado = true;
+        }
+
+           
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if(!inicializado)
+        {
+            return;
+        }
 
         switch (estadoAtual)
         {
@@ -89,11 +113,11 @@ public class EnemyControll : MonoBehaviour
 
     public void MovimentoDoInimigo()
     {
-        Vector2 direcao = (posicoes[indiceDestinoAtual].position - inimigo.transform.position).normalized;
+        Vector2 direcao = (posicoes[indiceDestinoAtual].position - transform.position).normalized;
         
-        inimigo.GetComponent<Rigidbody2D>().linearVelocity = direcao * velocidadeInimigo;
+        inimigo.linearVelocity = direcao * velocidadeInimigo;
         
-        float distancia = Vector2.Distance(inimigo.transform.position, posicoes[indiceDestinoAtual].position);
+        float distancia = Vector2.Distance(transform.position, posicoes[indiceDestinoAtual].position);
         if (distancia < 0.1f)
         {
             StartCoroutine(PausaPatrulhaInimigo());
@@ -103,44 +127,70 @@ public class EnemyControll : MonoBehaviour
     //vai identificar o player e logo após, vai atacá-lo
     public void IdentificarPlayer()
     {
-        Vector2 direcao = inimigo.transform.localScale.x < 0 ? Vector2.right : Vector2.left;
-        RaycastHit2D hit = Physics2D.Raycast(rayCastLine.position, direcao, 0.5f, layerPlayer);
+        //Essas três variaveis irão determinar o limite em que o player pode ser eprseguido
+        float posXPlayer = _playerController.transform.position.x;
+        float limiteDireito = limiteCantoDireito.position.x;
+        float limiteEsquerdo = limiteCantoEsquerdo.position.x;
 
-        Debug.DrawRay(rayCastLine.position, direcao * 0.5f, Color.red);
+        //Fara a logica do limite, desta forma o prefabDoInimigo não ficara perseguindo o player para sempre
+        if (posXPlayer < limiteEsquerdo || posXPlayer > limiteDireito)
+        {
+            if (estadoAtual == EstadoDoInimigo.Perseguindo)
+            {
+                estadoAtual = EstadoDoInimigo.Patrulhando;
+            }
+            return;
+        }
+
+        Vector2 direcao = transform.localScale.x < 0 ? Vector2.right : Vector2.left;
+        RaycastHit2D hit = Physics2D.Raycast(rayCastLine.position, direcao, visaoDoInimigo, layerPlayer);
+
+        Debug.DrawRay(rayCastLine.position, direcao * visaoDoInimigo, Color.red);
 
         if (hit.collider != null && hit.collider.CompareTag("Player"))
         {
             estadoAtual = EstadoDoInimigo.Perseguindo;
         }
-        else if(estadoAtual == EstadoDoInimigo.Perseguindo)
+        else if (estadoAtual == EstadoDoInimigo.Perseguindo)
         {
             estadoAtual = EstadoDoInimigo.Patrulhando;
         }
 
     }
 
+    public void AreaAtaque()
+    {
+        
+        bool hit = Physics2D.OverlapCircle(areaAtaque.position, tamanhoAreaAtaque, layerPlayer);
 
+        if (hit)
+        {
+            Debug.Log("Player detectado");
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+
+        Gizmos.DrawWireSphere(areaAtaque.position, tamanhoAreaAtaque);
+    }
 
     public void Flip()
     {
-        float x = inimigo.transform.localScale.x;
+        float x = transform.localScale.x;
 
         x *= -1;
 
-        inimigo.transform.localScale = new Vector3(x, inimigo.transform.localScale.y, inimigo.transform.localScale.z);
+        transform.localScale = new Vector3(x, transform.localScale.y, transform.localScale.z);
     }
-    IEnumerator PausaVelocidade()
-    {
-        inimigo.GetComponent<Rigidbody2D>().linearVelocity = Vector2.zero;
-
-        yield return new WaitForSeconds(1f);
-    }
+    
     //Ao chegar no destino, sera feito a troca de pontos e uma pequena pausa para virar
     IEnumerator PausaPatrulhaInimigo()
     {
         estadoAtual = EstadoDoInimigo.Esperando;
 
-        inimigo.GetComponent<Rigidbody2D>().linearVelocity = Vector2.zero;
+        inimigo.linearVelocity = Vector2.zero;
 
         yield return new WaitForSeconds(2f);
         indiceDestinoAtual++;
@@ -155,15 +205,37 @@ public class EnemyControll : MonoBehaviour
     //Ao encontrar o player, fara uma pequena pausa e então sua velocidade aumentara
     IEnumerator IniciarAtaqueNoPlayer()
     {
-        Rigidbody2D enemy = inimigo.GetComponent<Rigidbody2D>();
-        enemy.linearVelocity = Vector2.zero;
+        if (!inicializado)
+        {
+            yield break;
+        }
+
+        //Rigidbody2D enemy = prefabDoInimigo.GetComponent<Rigidbody2D>();
+        inimigo.linearVelocity = Vector2.zero;
         yield return new WaitForSeconds(0.5f);
-        Vector2 direcaoPlayer = (_playerController.transform.position - inimigo.transform.position).normalized;
-        enemy.linearVelocity = new Vector2(direcaoPlayer.x * (velocidadeInimigo + 0.3f), 0);
+        Vector2 direcaoPlayer = (_playerController.transform.position - transform.position).normalized;
+        
+        float posXPlayer = _playerController.transform.position.x;
+        float limiteDireita = limiteCantoDireito.position.x;
+        float limiteEsquerda = limiteCantoEsquerdo.position.x;
+        if (posXPlayer >= limiteEsquerda && posXPlayer <= limiteDireita)
+        {
+            inimigo.linearVelocity = new Vector2(direcaoPlayer.x * (velocidadeInimigo + 0.4f), 0);
 
+        }
+        else
+        {
+            estadoAtual = EstadoDoInimigo.Patrulhando;
+        }
 
+        
     }
-
-
-
+    
+    public void Inicializar(Transform[] pontos, Transform limiteEsquerdo, Transform limiteDireito)
+    {
+        posicoes = pontos;
+        limiteCantoEsquerdo = limiteEsquerdo;
+        limiteCantoDireito = limiteDireito;
+        inicializado = true;
+    }
 }

@@ -7,7 +7,7 @@ public class ControleDeVidaDoPlayer : MonoBehaviour
 
     private PlayerController _playerController;
 
-    public int life = 3;
+    public int life;
 
     private bool isDeath;
     private void Awake()
@@ -24,40 +24,26 @@ public class ControleDeVidaDoPlayer : MonoBehaviour
 
     private void Start()
     {
-        _playerController = FindFirstObjectByType<PlayerController>();
+        _playerController = GetComponent<PlayerController>();
+        //AtivaPlayer();
     }
 
     public void DanoNoPlayer()
     {
         life--;
-        StartCoroutine(ResetaPlayer());
-        if (life <= 0)
+        _playerController.GetComponent<PlayerAnimationController>().AnimacaoTomandoDano();
+        //DesativaPlayer();
+        if (life < 0)
         {
+            //StartCoroutine(ResetaPlayer());
             life = 0;
             //Chama Game Over
+            DesativaPlayerPermanente();
         }
-        print("Player tem apenas "+life+" vidas.");
         CheckPointManager.instance.CarregarPosicao(PlayerController.instance.transform);
+        print("Player tem apenas "+life+" vidas.");
     }
-
-    IEnumerator ResetaPlayer()
-    {
-        DesativaPlayer();
-        print("Player desativado");
-        yield return new WaitForSeconds(2f);
-        AtivaPlayer();
-        print("Player ativado");
-
-    }
-
-    public void AtivaPlayer()
-    {
-        PlayerController.instance.GetComponent<SpriteRenderer>().enabled = true;
-        PlayerController.instance.GetComponent<CapsuleCollider2D>().isTrigger = false;
-        PlayerController.instance.GetComponent<Rigidbody2D>().gravityScale = 1;
-    }
-
-    public void DesativaPlayer()
+    public void DesativaPlayerPermanente()
     {
         PlayerController.instance.GetComponent<SpriteRenderer>().enabled = false;
         PlayerController.instance.GetComponent<CapsuleCollider2D>().isTrigger = true;

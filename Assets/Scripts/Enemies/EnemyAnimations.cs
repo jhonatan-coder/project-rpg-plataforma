@@ -19,8 +19,18 @@ public class EnemyAnimations : MonoBehaviour
         anim.SetBool("isRun", value);
     }
 
-    /*public void AnimacaoDeDano()
+    public void AnimacaoDeHit(string value)
     {
-        anim.set
-    }*/
+        anim.SetTrigger(value);
+    }
+    //animacao da bala do trunk
+    public void AnimacaoDeDano(string value)
+    {
+        anim.SetTrigger(value);
+    }
+    //animacao de ataque do trunk
+    public void AnimacaoDeAtaque(string value)
+    {
+        anim.SetTrigger(value);
+    }
 }

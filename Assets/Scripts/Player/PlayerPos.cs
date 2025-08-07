@@ -9,10 +9,6 @@ public class PlayerPos : MonoBehaviour
         {
             instance = this;
         }
-        else
-        {
-            Destroy(gameObject);
-        }
     }
     
 

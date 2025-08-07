@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour
     [Header("Configuração de movimentos")]
     public float velocidadePlayer;
     public float forcaPuloPlayer;
+    public float trampolimForce;
     [Header("Controle de movimentos")]
     private float horizontal;
     private bool olhandoDireita;
@@ -114,7 +115,6 @@ public class PlayerController : MonoBehaviour
     {
         yield return new WaitForEndOfFrame();
         _playerAnimationController.AnimacaoPuloDuplo();
-
     }
 
     //verifica se esta caindo para ativar a animação de cair
@@ -170,4 +170,17 @@ public class PlayerController : MonoBehaviour
         Debug.DrawLine(chaoA.position, chaoA.position+Vector3.down * tamanhoRayCast, color);
         Debug.DrawLine(chaoB.position, chaoB.position+Vector3.down * tamanhoRayCast, color);
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            //zera a velocidade do Y antes de aplicar 
+            playerRig2D.linearVelocity = new Vector2(playerRig2D.linearVelocity.x, 0f);
+            playerRig2D.AddForce(Vector2.up * trampolimForce, ForceMode2D.Impulse);
+            Debug.Log("Encostou no prefabDoInimigo");
+
+        }
+    }
+
 }
