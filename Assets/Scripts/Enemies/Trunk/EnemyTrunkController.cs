@@ -12,7 +12,7 @@ public class EnemyTrunkController : MonoBehaviour
 
     public Transform rayCastLine;
     public float velocidadeInimigo;
-    [SerializeField] private int vidaInimigo;
+    public int vidaInimigo;
 
     public GameObject municao;
     public Transform arma;
@@ -23,13 +23,14 @@ public class EnemyTrunkController : MonoBehaviour
     private bool playerVisivel = false;
 
     private bool inimigoCaminhando;
-
     public float velocidadeDisparo;
     public float intervaloDeAtaque;
+
     private bool podeAtirar;
     private bool atacando;
     private bool levandoDano;
     private bool isMorreu;
+
     public LayerMask layerMask;
 
     private bool inicializado = false;
@@ -53,7 +54,6 @@ public class EnemyTrunkController : MonoBehaviour
 
         indiceDestinoAtual = 1;
         podeAtirar = true;
-        vidaInimigo = 2;
 
         levandoDano = false;
         isMorreu = false;

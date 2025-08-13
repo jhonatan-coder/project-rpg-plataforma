@@ -17,7 +17,8 @@ public class PlayerPos : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            CheckPointManager.instance.SalvarPosicao(collision.transform.position);
+            SaveSystem.dados.posicaoJogador = SerializableVector3.FromVector3(collision.gameObject.transform.position);
+            SaveSystem.Salvar();
         }
     }
 

@@ -35,8 +35,6 @@ public class EnemyControll : MonoBehaviour
     public float velocidadeInimigo;
 
     //Acerto ataque prefabDoInimigo
-    public Transform areaAtaque;
-    public float tamanhoAreaAtaque;
     private int indiceDestinoAtual;
     public LayerMask layerPlayer;
 
@@ -50,12 +48,19 @@ public class EnemyControll : MonoBehaviour
 
     [HideInInspector] public InstanciarInimigo instanciador;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
+    private void Awake()
+    {
+        enemyAnim = GetComponent<EnemyAnimations>();
+        if (enemyAnim == null)
+        {
+            Debug.LogWarning($"{name} não tem EnemyAnimations!");
+            return;
+        }
+    }
     void Start()
     {
-       
-
         _playerController = FindFirstObjectByType<PlayerController>();
-        enemyAnim = GetComponentInChildren<EnemyAnimations>();
+        
         inimigo = GetComponent<Rigidbody2D>();
         estadoAtual = EstadoDoInimigo.Patrulhando;
         indiceDestinoAtual = 1;
@@ -103,10 +108,15 @@ public class EnemyControll : MonoBehaviour
     }
     private void FixedUpdate()
     {
+       
         Animacoes();
     }
     public void Animacoes()
     {
+        if (enemyAnim == null)
+        {
+            return;
+        }
         enemyAnim.AnimacaoDeCaminhada(inimigoCaminhando);
         enemyAnim.AnimacaoDeCorrida(inimigoCorrendo);
     }
@@ -156,24 +166,6 @@ public class EnemyControll : MonoBehaviour
             estadoAtual = EstadoDoInimigo.Patrulhando;
         }
 
-    }
-
-    public void AreaAtaque()
-    {
-        
-        bool hit = Physics2D.OverlapCircle(areaAtaque.position, tamanhoAreaAtaque, layerPlayer);
-
-        if (hit)
-        {
-            Debug.Log("Player detectado");
-        }
-    }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.green;
-
-        Gizmos.DrawWireSphere(areaAtaque.position, tamanhoAreaAtaque);
     }
 
     public void Flip()

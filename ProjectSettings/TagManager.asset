@@ -9,6 +9,7 @@ TagManager:
   - Municao
   - EnemyPig
   - EnemyTrunk
+  - Plataforma
   layers:
   - Default
   - TransparentFX
@@ -20,8 +21,8 @@ TagManager:
   - Parede
   - inimigo
   - Armadilha
-  - 
-  - 
+  - Frutas
+  - Plataforma
   - 
   - 
   - 
@@ -43,6 +44,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Background
+    uniqueID: 3620645493
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0

@@ -37,27 +37,29 @@ public class PlayerController : MonoBehaviour
     public bool IsJumping { get => isJumping; set => isJumping = value; }
     public bool IsFalling { get => isFalling; set => isFalling = value; }
 
-
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         instance = this;
         playerRig2D = GetComponent<Rigidbody2D>();
         _playerAnimationController = FindFirstObjectByType<PlayerAnimationController>();
-       
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        ColidindoComChao();
-        Movimentar();
-        if (Input.GetButtonDown("Jump"))
+        if (ControleDeVidaDoPlayer.instance.IsDeath == false)
         {
-            Pulando();
-        }
+            ColidindoComChao();
+            Movimentar();
+            if (Input.GetButtonDown("Jump"))
+            {
+                Pulando();
+            }
 
-        Caindo();
+            Caindo();
+        }
         
     }
 

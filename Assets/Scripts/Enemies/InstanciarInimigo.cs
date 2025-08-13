@@ -33,10 +33,6 @@ public class InstanciarInimigo : MonoBehaviour
     public void InstanciandoNovoInimigo()
     {
         GameObject temp = Instantiate(prefabDoInimigo, posicaoDeInstance.position, Quaternion.identity);
-        /*temp.GetComponent<SpriteRenderer>().enabled = true;
-        temp.GetComponent<CapsuleCollider2D>().isTrigger = false;
-        temp.GetComponent<Rigidbody2D>().linearVelocity = new Vector2(temp.GetComponent<EnemyControll>().velocidadeInimigo, 0f);
-        temp.GetComponent<Rigidbody2D>().gravityScale = 1;*/
         inimigoAtual = temp;
 
         EnemyControll controle = temp.GetComponent<EnemyControll>();

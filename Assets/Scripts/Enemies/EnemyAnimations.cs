@@ -3,11 +3,11 @@ using UnityEngine;
 public class EnemyAnimations : MonoBehaviour
 {
     private Animator anim;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void Awake()
     {
         anim = GetComponent<Animator>();
     }
+
 
     public void AnimacaoDeCaminhada(bool value)
     {

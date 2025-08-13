@@ -1,23 +1,53 @@
+using System.Collections;
 using UnityEngine;
 
 public class AtaqueNoPlayer : MonoBehaviour
-{
-    private void OnTriggerEnter2D(Collider2D collision)
+{//Acerto ataque prefabDoInimigo
+    public Transform areaAtaque;
+    public float tamanhoAreaAtaque;
+    public LayerMask layerPlayer;
+    private bool isAtacou;
+    private void Start()
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (areaAtaque == null)
         {
-            ControleDeVidaDoPlayer.instance.DanoNoPlayer();
+            areaAtaque = GameObject.Find("AreaDeAcerto").GetComponent<Transform>();
+        }
+        isAtacou = false;
+    }
 
+    private void Update()
+    {
+        AreaAtaque();
+    }
+
+    public void AreaAtaque()
+    {
+
+        bool hit = Physics2D.OverlapCircle(areaAtaque.position, tamanhoAreaAtaque, layerPlayer);
+
+        if (hit)
+        {
+            Debug.Log("Player detectado");
+            StartCoroutine(TempoDeAtaque());
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    IEnumerator TempoDeAtaque()
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (isAtacou == false)
         {
             ControleDeVidaDoPlayer.instance.DanoNoPlayer();
-
+            isAtacou = true;
+            yield return null;
         }
+        yield return new WaitForSeconds(2f);
+        isAtacou = false;
     }
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
 
+        Gizmos.DrawWireSphere(areaAtaque.position, tamanhoAreaAtaque);
+    }
 }

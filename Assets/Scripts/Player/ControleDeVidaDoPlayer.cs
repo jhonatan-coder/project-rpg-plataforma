@@ -10,44 +10,54 @@ public class ControleDeVidaDoPlayer : MonoBehaviour
     public int life;
 
     private bool isDeath;
+
+    public bool IsDeath { get => isDeath; set => isDeath = value; }
+
     private void Awake()
     {
         if (instance == null)
         {
             instance = this;
+            SaveSystem.Carregar();     
+            IsDeath = false;
+            DontDestroyOnLoad(this.gameObject);
         }
         else
         {
-            DontDestroyOnLoad(this.gameObject);
+            Destroy(gameObject);
         }
     }
 
     private void Start()
     {
-        _playerController = GetComponent<PlayerController>();
-        //AtivaPlayer();
+       _playerController = GetComponent<PlayerController>();
+       life = SaveSystem.dados.vidasExtras;
     }
 
     public void DanoNoPlayer()
     {
         life--;
         _playerController.GetComponent<PlayerAnimationController>().AnimacaoTomandoDano();
-        //DesativaPlayer();
+
         if (life < 0)
         {
-            //StartCoroutine(ResetaPlayer());
             life = 0;
             //Chama Game Over
             DesativaPlayerPermanente();
         }
-        CheckPointManager.instance.CarregarPosicao(PlayerController.instance.transform);
-        print("Player tem apenas "+life+" vidas.");
+
+        PlayerController.instance.transform.position = SaveSystem.dados.posicaoJogador.ToVector3();
+        SaveSystem.dados.vidasExtras = life;
+        SaveSystem.Salvar();
+        print("Player tem apenas "+life+" vidasExtras.");
     }
     public void DesativaPlayerPermanente()
     {
-        PlayerController.instance.GetComponent<SpriteRenderer>().enabled = false;
+
         PlayerController.instance.GetComponent<CapsuleCollider2D>().isTrigger = true;
+        PlayerController.instance.GetComponent<SpriteRenderer>().enabled = false;
         PlayerController.instance.GetComponent<Rigidbody2D>().gravityScale = 0;
         PlayerController.instance.GetComponent<Rigidbody2D>().linearVelocity = Vector2.zero;
+        IsDeath = true;
     }
 }
