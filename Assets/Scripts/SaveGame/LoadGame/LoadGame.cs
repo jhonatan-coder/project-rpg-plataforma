@@ -3,6 +3,10 @@ using UnityEngine.SceneManagement;
 
 public class LoadGame : MonoBehaviour
 {
+    private void Start()
+    {
+        print(SaveSystem.dados.cenaAtual);
+    }
     public void btnLoadGame()
     {
 

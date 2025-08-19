@@ -102,6 +102,7 @@ GameObject:
   - component: {fileID: 8579776089877613488}
   - component: {fileID: 6369111204118962443}
   - component: {fileID: 1121662276441132258}
+  - component: {fileID: -8166243098397404954}
   m_Layer: 0
   m_Name: Bullet_Trunk_0
   m_TagString: Municao
@@ -287,6 +288,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 842af4c4ab63b28428e398586a16d684, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-8166243098397404954
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1736691549975700930}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aea5a1f13b7126442a921b8f306e23c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &6084933424774234496

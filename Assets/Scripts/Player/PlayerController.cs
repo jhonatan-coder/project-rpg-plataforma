@@ -6,6 +6,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public static PlayerController instance;
+    //private GameObject posicaoInicialNovaFase;
 
     [Header("Referências internas")]
     private  PlayerAnimationController _playerAnimationController;
@@ -43,7 +44,7 @@ public class PlayerController : MonoBehaviour
         instance = this;
         playerRig2D = GetComponent<Rigidbody2D>();
         _playerAnimationController = FindFirstObjectByType<PlayerAnimationController>();
-        
+
     }
 
     // Update is called once per frame

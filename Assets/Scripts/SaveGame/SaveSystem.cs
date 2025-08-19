@@ -1,7 +1,9 @@
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
+[SerializeField]
 public static class SaveSystem
 {
     private static string savePath = Application.persistentDataPath + "/save.dat";
@@ -23,13 +25,14 @@ public static class SaveSystem
             FileStream file = File.Open(savePath, FileMode.Open);
             dados = (SaveData)bf.Deserialize(file);
             file.Close();
+            Debug.Log("[SaveSystem] Carregado! Score: " + dados.score);
         }
         else
         {
             dados = new SaveData();
             dados.vidasExtras = 3;
-            dados.score = 0;
             Salvar();
+            Debug.Log("[SaveSystem] Novo save criado.");
         }
     }
 
