@@ -353,6 +353,7 @@ MonoBehaviour:
   rayCastLine: {fileID: 2803032026536638238}
   velocidadeInimigo: 0.5
   vidaInimigo: 2
+  tempoParaVirarNaPatrulha: 3
   municao: {fileID: 1736691549975700930, guid: 5fb234b3c047ea34f84c7a5bde81dba1, type: 3}
   arma: {fileID: 3168646872457524076}
   tempoParaDesistir: 2

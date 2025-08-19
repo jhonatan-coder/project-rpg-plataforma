@@ -44,6 +44,8 @@ public class EnemyControll : MonoBehaviour
 
     private bool inicializado = false;
 
+    private bool pausaIniciada = false;
+
     private EstadoDoInimigo estadoAtual;
 
     [HideInInspector] public InstanciarInimigo instanciador;
@@ -101,14 +103,11 @@ public class EnemyControll : MonoBehaviour
                 inimigoCaminhando = false;
                 inimigoCorrendo = false;
                 break;
-        }
-
-        
+        }               
         
     }
     private void FixedUpdate()
-    {
-       
+    {      
         Animacoes();
     }
     public void Animacoes()
@@ -117,20 +116,30 @@ public class EnemyControll : MonoBehaviour
         {
             return;
         }
+
         enemyAnim.AnimacaoDeCaminhada(inimigoCaminhando);
         enemyAnim.AnimacaoDeCorrida(inimigoCorrendo);
     }
 
     public void MovimentoDoInimigo()
     {
+        if (estadoAtual == EstadoDoInimigo.Esperando)
+        {
+            inimigo.linearVelocity = Vector2.zero;
+            return;
+        }
         Vector2 direcao = (posicoes[indiceDestinoAtual].position - transform.position).normalized;
         
         inimigo.linearVelocity = direcao * velocidadeInimigo;
-        
+
         float distancia = Vector2.Distance(transform.position, posicoes[indiceDestinoAtual].position);
-        if (distancia < 0.1f)
+        //float distanciaX = Mathf.Abs(transform.position.x - posicoes[indiceDestinoAtual].position.x);
+        if (distancia <= 0.01f && !pausaIniciada)
         {
+
+            inimigo.linearVelocity = Vector2.zero;
             StartCoroutine(PausaPatrulhaInimigo());
+            pausaIniciada = true;
         }
     }
 
@@ -182,7 +191,6 @@ public class EnemyControll : MonoBehaviour
     {
         estadoAtual = EstadoDoInimigo.Esperando;
 
-        inimigo.linearVelocity = Vector2.zero;
 
         yield return new WaitForSeconds(2f);
         indiceDestinoAtual++;
@@ -192,6 +200,7 @@ public class EnemyControll : MonoBehaviour
         }
         Flip();
         estadoAtual = EstadoDoInimigo.Patrulhando;
+        pausaIniciada = false;
     }
 
     //Ao encontrar o player, fara uma pequena pausa e então sua velocidade aumentara

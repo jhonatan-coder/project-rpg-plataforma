@@ -29,13 +29,21 @@ public class ControleFrutas : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-
-            ControlePontos.instance.totalScore += pontos;
-            SaveSystem.dados.itensColetados.Add(itemID);
-            SaveSystem.dados.items++;
-            SaveSystem.dados.score = ControlePontos.instance.totalScore;
-
-            SaveSystem.Salvar();
+            if (ControlePontos.instance != null)
+            {
+                ControlePontos.instance.AdicionarPontos(pontos);
+            }
+            else
+            {
+                Debug.LogWarning("ControlePontos.instance não encontrado!");
+            }
+            if (!SaveSystem.dados.itensColetados.Contains(itemID))
+            {
+                SaveSystem.dados.itensColetados.Add(itemID);
+                SaveSystem.dados.items++;
+                //SaveSystem.dados.score = ControlePontos.instance.totalScore;
+                SaveSystem.Salvar();
+            }
 
             Debug.Log(pontos + " Pontos adicionados");
             FrutaColetada();

@@ -116,20 +116,20 @@ TextureImporter:
       name: End (Idle)_0
       rect:
         serializedVersion: 2
-        x: 8
+        x: 0
         y: 0
-        width: 48
-        height: 45
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 5935aa7bf63283d80800000000000000
-      internalID: -8270821752936180843
+      spriteID: dbde52698e3fce941a57655ae299b630
+      internalID: 99898178
       vertices: []
       indices: 
       edges: []
@@ -138,7 +138,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 172fd25d25929724f9404397ad6e5447
     internalID: 0
     vertices: []
     indices: 
@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      End (Idle)_0: 99898178
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
