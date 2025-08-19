@@ -7,13 +7,13 @@ public class LoadGame : MonoBehaviour
     {
 
         SaveSystem.Carregar();
-        if (!string.IsNullOrEmpty(SaveSystem.dados.cenaAtual))
+        /*if (!string.IsNullOrEmpty(SaveSystem.dados.cenaAtual))
         {
             SceneManager.LoadScene(SaveSystem.dados.cenaAtual);
         }
         else
         {
             Debug.LogWarning("Nenhum save encontrado");
-        }
+        }*/
     }
 }
