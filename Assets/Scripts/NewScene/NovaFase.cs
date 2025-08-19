@@ -1,30 +1,27 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class NovaFase : MonoBehaviour
 {
-    private AnimacaoCheckpoint animCheckpoint;
-    public string novaFase;
+    private AnimacaoCheckPoint animCheckPoint;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        animCheckpoint = GetComponent<AnimacaoCheckpoint>();
+        animCheckPoint = GetComponent<AnimacaoCheckPoint>();
     }
 
- 
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
             Debug.Log("Nova fase");
-            Invoke(nameof(MudaFase), 3f);
-            animCheckpoint.CheckPointAnimation(true);
+            animCheckPoint.CheckPointAnimation();
         }
-    }
-
-    [SerializeField]
-    public void MudaFase()
-    {
-        SceneManager.LoadScene(novaFase);
     }
 }

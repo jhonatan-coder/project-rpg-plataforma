@@ -13,14 +13,13 @@ public class EnemyTrunkController : MonoBehaviour
     public Transform rayCastLine;
     public float velocidadeInimigo;
     public int vidaInimigo;
-    public float tempoParaVirarNaPatrulha;// controla o tempo que cada npc ira virar ao chegar no destino
 
     public GameObject municao;
     public Transform arma;
     private int indiceDestinoAtual;
 
     private float tempoSemVerPlayer = 0f;
-    public float tempoParaDesistir = 2f;//tempo para desistir de atacar assim que o player sair da visão
+    public float tempoParaDesistir = 2f;
     private bool playerVisivel = false;
 
     private bool inimigoCaminhando;
@@ -31,7 +30,6 @@ public class EnemyTrunkController : MonoBehaviour
     private bool atacando;
     private bool levandoDano;
     private bool isMorreu;
-
 
     public LayerMask layerMask;
 
@@ -132,7 +130,7 @@ public class EnemyTrunkController : MonoBehaviour
 
         inimigo.linearVelocity = Vector2.zero;
 
-        yield return new WaitForSeconds(tempoParaVirarNaPatrulha);
+        yield return new WaitForSeconds(2f);
         indiceDestinoAtual++;
         if (indiceDestinoAtual == posicoes.Length)
         {

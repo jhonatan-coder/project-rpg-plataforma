@@ -62,9 +62,8 @@ public class ControlePlataformaCaindo : MonoBehaviour
         plataforma.GetComponent<BoxCollider2D>().isTrigger = true;
 
         yield return new WaitForSeconds(1f);
-        //Define destino para posição inicial armazenada em posicaoAtual
+        //posição inicial é reeutilizada
         Vector3 destino = posicaoAtual;
-
         //Sobe a plataforma até atingir a altura desejada
         while (Vector3.Distance(plataforma.position, destino) > 0.01f)
         {

@@ -35,6 +35,7 @@ public class InstanciarInimigoTrunk : MonoBehaviour
         GameObject temp = Instantiate(prefabDoInimigo, pontoDeRespawn.position, Quaternion.identity);
         //armazena o inimigo para controlar o fluxo de criação
         inimigoAtual = temp;
+
         EnemyTrunkController controle = temp.GetComponent<EnemyTrunkController>();
         // Procura um filho chamado PontosDePatrulhas, e então retorna os Transforms que estão ali dentro
         Transform paiDosPontos = transform.Find("PontosDePatrulhas");
@@ -51,6 +52,7 @@ public class InstanciarInimigoTrunk : MonoBehaviour
             }
         }
         //vai inicializar os pontos para poder ter o patrulhamento
+
 
         controle.Inicializar(pontos);
         controle.instanciador = this;

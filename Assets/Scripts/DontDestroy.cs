@@ -4,16 +4,22 @@ public class DontDestroy : MonoBehaviour
 {
     private static DontDestroy instance;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Awake()
+    void Start()
     {
-        if (instance != null && instance != this)
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
+        else
         {
             Destroy(gameObject);
-            return;
         }
-
-        instance = this;
-        DontDestroyOnLoad(gameObject);
     }
 
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
 }

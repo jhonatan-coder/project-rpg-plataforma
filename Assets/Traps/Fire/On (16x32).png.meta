@@ -126,19 +126,19 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 16
-        width: 16
-        height: 16
+        y: 0
+        width: 48
+        height: 17
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 0db5108d469689140b84bfde2ec51767
-      internalID: -881150426
+      spriteID: 52bf20fe6595fe7c0800000000000000
+      internalID: -4039912110816036059
       vertices: []
       indices: 
       edges: []
@@ -147,9 +147,9 @@ TextureImporter:
       name: On (16x32)_1
       rect:
         serializedVersion: 2
-        x: 16
+        x: 2
         y: 16
-        width: 16
+        width: 12
         height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -157,10 +157,10 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 165e084a9ee71364f8b75a37036c88bd
-      internalID: -803746993
+      spriteID: 0873d2455b80d1f50800000000000000
+      internalID: 6853643782822115200
       vertices: []
       indices: 
       edges: []
@@ -169,20 +169,20 @@ TextureImporter:
       name: On (16x32)_2
       rect:
         serializedVersion: 2
-        x: 32
+        x: 19
         y: 16
-        width: 16
-        height: 16
+        width: 12
+        height: 15
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: d5f455b505c91bd4b98c6b13bd302ef8
-      internalID: 284934701
+      spriteID: 8e39184272385eec0800000000000000
+      internalID: -3538277728090221592
       vertices: []
       indices: 
       edges: []
@@ -191,64 +191,20 @@ TextureImporter:
       name: On (16x32)_3
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 16
-        height: 16
+        x: 33
+        y: 16
+        width: 12
+        height: 13
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: b884ec0405813624888ea35812daa0cd
-      internalID: 376828990
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: On (16x32)_4
-      rect:
-        serializedVersion: 2
-        x: 16
-        y: 0
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: adf0f83382e48ae40b4421430a4149bc
-      internalID: -1326455046
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: On (16x32)_5
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 0
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c31e34db69f7dd44e9b1bfcfeacbdf7e
-      internalID: -1821371022
+      spriteID: 83496dbf355296d00800000000000000
+      internalID: 966344637685339192
       vertices: []
       indices: 
       edges: []
@@ -257,7 +213,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 46bcfb1bde6665243bd380b16335e981
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -266,13 +222,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      On (16x32)_0: -881150426
-      On (16x32)_1: -803746993
-      On (16x32)_2: 284934701
-      On (16x32)_3: 376828990
-      On (16x32)_4: -1326455046
-      On (16x32)_5: -1821371022
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
