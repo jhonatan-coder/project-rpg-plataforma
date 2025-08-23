@@ -129,7 +129,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: dbde52698e3fce941a57655ae299b630
-      internalID: 99898178
+      internalID: -8270821752936180843
       vertices: []
       indices: 
       edges: []
@@ -148,11 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-<<<<<<< HEAD
       End (Idle)_0: -8270821752936180843
-=======
-      End (Idle)_0: 99898178
->>>>>>> parent of 592a9a8 (feat: modificado menu inicial.)
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

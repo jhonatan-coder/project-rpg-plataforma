@@ -11,6 +11,7 @@ TagManager:
   - EnemyTrunk
   - Plataforma
   - PontoCaminhoSerra
+  - SpawnPlayer
   layers:
   - Default
   - TransparentFX

@@ -1,6 +1,6 @@
-using UnityEngine;
+﻿using UnityEngine;
 
-public class PosicaoinicialNovaFase : MonoBehaviour
+public class PosicaoInicialNovaFase : MonoBehaviour
 {
     private string startGameID;
     void Start()
@@ -19,8 +19,15 @@ public class PosicaoinicialNovaFase : MonoBehaviour
             {
                 SaveSystem.dados.cenasVisitadas.Add(cenaAtual);
             }
+
             SaveSystem.dados.posicaoJogador = SerializableVector3.FromVector3(collision.gameObject.transform.position);
-            SaveSystem.dados.itensAtivados[startGameID] = false;
+            transform.GetComponent<BoxCollider2D>().enabled = false;
+            if (!SaveSystem.dados.checkpointsAtivados.Contains(startGameID))
+            {
+                SaveSystem.dados.checkpointsAtivados.Add(startGameID);
+            }
+
+            Debug.Log("Script:[PosicaoInicialPlayer] Posicao salva do player" + SaveSystem.dados.posicaoJogador);
             SaveSystem.Salvar();
         }
     }

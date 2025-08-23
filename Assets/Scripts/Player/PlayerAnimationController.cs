@@ -3,7 +3,7 @@ using UnityEngine;
 public class PlayerAnimationController : MonoBehaviour
 {
     private Animator anim;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    // StartFase is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         anim = GetComponent<Animator>();

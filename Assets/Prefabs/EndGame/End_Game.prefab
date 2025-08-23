@@ -80,7 +80,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 99898178, guid: 1aa2d57b7b2169a4b97a391d8abef873, type: 3}
+  m_Sprite: {fileID: -8270821752936180843, guid: 1aa2d57b7b2169a4b97a391d8abef873, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -115,7 +115,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b4ea2b12ce66cf4b86f1ca76c957c1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  novaFase: 
+  novaFase: Fase-02
 --- !u!95 &429951456077903851
 Animator:
   serializedVersion: 7

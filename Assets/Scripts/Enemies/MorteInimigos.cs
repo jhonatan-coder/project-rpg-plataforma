@@ -42,7 +42,6 @@ public class MorteInimigos : MonoBehaviour
         }
     }      
     
-
     IEnumerator TempoDeDano()
     {
         if (levaDano) { yield break; }
@@ -50,7 +49,6 @@ public class MorteInimigos : MonoBehaviour
         levaDano = true;
         vidaInimigo--;
        _enemyAnimation.AnimacaoDeHit("isHit");
-        Debug.Log("prefabDoInimigo levou dano");
         yield return new WaitForSeconds(2f);
 
         levaDano = false;

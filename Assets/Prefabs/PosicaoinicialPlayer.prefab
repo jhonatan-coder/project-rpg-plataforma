@@ -12,10 +12,9 @@ GameObject:
   - component: {fileID: 3978535818694347695}
   - component: {fileID: 1358511628270525931}
   - component: {fileID: 662166979069483468}
-  - component: {fileID: 7275215093340638070}
   m_Layer: 0
-  m_Name: PosicaoinicialPlayer
-  m_TagString: Untagged
+  m_Name: PosicaoInicialPlayer
+  m_TagString: SpawnPlayer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -79,7 +78,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1291213835, guid: 952a8374decb3af4b816d8231ab15223, type: 3}
+  m_Sprite: {fileID: 3760162084414497370, guid: 952a8374decb3af4b816d8231ab15223, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -158,15 +157,3 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.47349378, y: 0.3461658}
   m_EdgeRadius: 0
---- !u!114 &7275215093340638070
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4491676102705179573}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 81c7450324ab6c243b635893d1751f1a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

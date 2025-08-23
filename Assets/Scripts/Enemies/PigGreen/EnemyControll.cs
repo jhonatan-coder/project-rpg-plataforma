@@ -23,6 +23,7 @@ public class EnemyControll : MonoBehaviour
     public Transform[] posicoes;
 
     public Transform areaDeDano;
+    public Transform areaDeAcertoNoPlayer;
 
     public float visaoDoInimigo;
 
@@ -49,7 +50,7 @@ public class EnemyControll : MonoBehaviour
     private EstadoDoInimigo estadoAtual;
 
     [HideInInspector] public InstanciarInimigo instanciador;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    // StartFase is called once before the first execution of Update after the MonoBehaviour is created
     private void Awake()
     {
         enemyAnim = GetComponent<EnemyAnimations>();
@@ -62,7 +63,6 @@ public class EnemyControll : MonoBehaviour
     void Start()
     {
         _playerController = FindFirstObjectByType<PlayerController>();
-        
         inimigo = GetComponent<Rigidbody2D>();
         estadoAtual = EstadoDoInimigo.Patrulhando;
         indiceDestinoAtual = 1;
@@ -90,6 +90,7 @@ public class EnemyControll : MonoBehaviour
             case EstadoDoInimigo.Patrulhando:
                 MovimentoDoInimigo();
                 IdentificarPlayer();
+                areaDeAcertoNoPlayer.gameObject.SetActive(false);
                 inimigoCaminhando = true;
                 inimigoCorrendo = false;
                 break;
@@ -146,20 +147,23 @@ public class EnemyControll : MonoBehaviour
     //Identifica o player e Ataca
     public void IdentificarPlayer()
     {
-        //Essas três variaveis irão determinar o limite em que o player pode ser eprseguido
-        float posXPlayer = _playerController.transform.position.x;
-        float limiteDireito = limiteCantoDireito.position.x;
-        float limiteEsquerdo = limiteCantoEsquerdo.position.x;
-
-        //Fara a logica do limite, desta forma o prefabDoInimigo não ficara perseguindo o player para sempre
-        if (posXPlayer < limiteEsquerdo || posXPlayer > limiteDireito)
+        if (_playerController != null)
         {
-            if (estadoAtual == EstadoDoInimigo.Perseguindo)
+            //Essas três variaveis irão determinar o limite em que o player pode ser eprseguido
+            float posXPlayer = _playerController.transform.position.x;
+            float limiteDireito = limiteCantoDireito.position.x;
+            float limiteEsquerdo = limiteCantoEsquerdo.position.x;
+
+            if (posXPlayer < limiteEsquerdo || posXPlayer > limiteDireito)
             {
-                estadoAtual = EstadoDoInimigo.Patrulhando;
+                if (estadoAtual == EstadoDoInimigo.Perseguindo)
+                {
+                    estadoAtual = EstadoDoInimigo.Patrulhando;
+                }
+                return;
             }
-            return;
         }
+        //Fara a logica do limite, desta forma o prefabDoInimigo não ficara perseguindo o player para sempre
 
         Vector2 direcao = transform.localScale.x < 0 ? Vector2.right : Vector2.left;
         RaycastHit2D hit = Physics2D.Raycast(rayCastLine.position, direcao, visaoDoInimigo, layerPlayer);
@@ -222,11 +226,11 @@ public class EnemyControll : MonoBehaviour
         if (posXPlayer >= limiteEsquerda && posXPlayer <= limiteDireita)
         {
             inimigo.linearVelocity = new Vector2(direcaoPlayer.x * (velocidadeInimigo + 0.4f), 0);
-
+            areaDeAcertoNoPlayer.gameObject.SetActive(true);
         }
         else
         {
-            estadoAtual = EstadoDoInimigo.Patrulhando;
+            estadoAtual = EstadoDoInimigo.Patrulhando;        
         }
 
         

@@ -8,7 +8,7 @@ public class ArmadilhasAtivadas : MonoBehaviour
     public CapsuleCollider2D[] colisoresFogo;
 
     private float time;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    // StartFase is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         var fogos = GetComponentsInChildren<Transform>();

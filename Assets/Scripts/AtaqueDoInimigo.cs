@@ -7,6 +7,10 @@ public class AtaqueDoInimigo : MonoBehaviour
     public float tamanhoAreaAtaque;
     public LayerMask layerPlayer;
     private bool isAtacou;
+
+    private EstadoDoInimigo estadoAtual;
+
+
     private void Start()
     {
         if (areaAtaque == null)
@@ -18,10 +22,10 @@ public class AtaqueDoInimigo : MonoBehaviour
 
     private void Update()
     {
-        AreaAtaque();
+        AtaqueNoPlayer();
     }
 
-    public void AreaAtaque()
+    public void AtaqueNoPlayer()
     {
 
         bool hit = Physics2D.OverlapCircle(areaAtaque.position, tamanhoAreaAtaque, layerPlayer);

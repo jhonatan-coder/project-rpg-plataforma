@@ -2,19 +2,12 @@ using UnityEngine;
 
 public class PortalTrigger : MonoBehaviour
 {
-    public enum TipoPortal 
-    { 
-        Entrada,
-        Saida
-    }
-
-    public TipoPortal tipoPortal;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
-            Portal.instance.JogadorNoPortal(tipoPortal, true);
+            Portal.instance.JogadorNoPortal(this.transform);
             Portal.instance.ControleAtivado = true;
         }
     }
@@ -22,7 +15,7 @@ public class PortalTrigger : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            Portal.instance.JogadorNoPortal(tipoPortal, true);
+            Portal.instance.JogadorNoPortal(null);
             Portal.instance.ControleAtivado = false;
         }
     }

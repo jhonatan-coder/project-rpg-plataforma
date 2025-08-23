@@ -32,6 +32,7 @@ public class ControleDeVidaDoPlayer : MonoBehaviour
     {
        _playerController = GetComponent<PlayerController>();
        life = SaveSystem.dados.vidasExtras;
+        
     }
 
     public void DanoNoPlayer()
@@ -42,11 +43,14 @@ public class ControleDeVidaDoPlayer : MonoBehaviour
         if (life < 0)
         {
             life = 0;
-            //Chama Game Over
+            SaveSystem.Salvar();
+            UnityEngine.SceneManagement.SceneManager.LoadScene("GameOver");
+            
             DesativaPlayerPermanente();
         }
 
         PlayerController.instance.transform.position = SaveSystem.dados.posicaoJogador.ToVector3();
+
         SaveSystem.dados.vidasExtras = life;
         SaveSystem.Salvar();
         print("Player tem apenas "+life+" vidasExtras.");

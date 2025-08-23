@@ -4,8 +4,8 @@ public class ControlePontos : MonoBehaviour
 {
     public static ControlePontos instance;
     public int totalScore;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    // StartFase is called once before the first execution of Update after the MonoBehaviour is created
+    // StartFase is called once before the first execution of Update after the MonoBehaviour is created
     private void Awake()
     {
 
@@ -18,6 +18,7 @@ public class ControlePontos : MonoBehaviour
         instance = this;
         DontDestroyOnLoad(gameObject);
 
+        SaveSystem.Carregar();
         if (SaveSystem.dados != null)
         {
             totalScore = SaveSystem.dados.score;
@@ -26,7 +27,6 @@ public class ControlePontos : MonoBehaviour
         {
             totalScore = 0;
         }
-        SaveSystem.Carregar();
         totalScore = SaveSystem.dados != null ? SaveSystem.dados.score : 0;
     }
     private void Update()

@@ -4,8 +4,14 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     private static GameManager instance;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    public GameObject player;
+
+    public GameObject canvasPrefab;
+    public GameObject playerPrefab;
+
+    private GameObject playerInstance;
+    private GameObject canvasInstance;
+
+    // StartFase is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
         //previne de haver duplicatas
@@ -19,31 +25,36 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         //delay para dar tempo de carregar o que é necessario
         StartCoroutine(DelayInit());
-        //--------------------------------------------//
+        if (!StartGame.isNewGame)
+        {
+            SaveSystem.Carregar();
+        }
 
-        SaveSystem.Carregar();
         //Verifica se a variavel player esta atribuída
-        if (player == null)
+        if (playerPrefab != null && playerInstance == null)
         {
             //caso esteja, procura na cena um gameObject com a tag player e armazena na variável player.
-            player = GameObject.FindGameObjectWithTag("Player");
+            playerInstance = GameObject.FindGameObjectWithTag("Player");
+            if (playerInstance == null)
+            {
+                playerInstance = Instantiate(playerPrefab, SaveSystem.dados.posicaoJogador.ToVector3(), Quaternion.identity);
+            }
         }
-        /*if (SaveSystem.dados.posicaoJogador.posX != 0 ||
-            SaveSystem.dados.posicaoJogador.posY != 0 ||
-            SaveSystem.dados.posicaoJogador.posZ !=0)
+
+        if (canvasInstance == null && canvasPrefab != null)
         {
-            player.transform.position = SaveSystem.dados.posicaoJogador.ToVector3();
-            SaveSystem.Salvar();
-        }*/
+            canvasInstance = Instantiate(canvasPrefab);
+            DontDestroyOnLoad(canvasInstance);
+        }
     }
 
     private IEnumerator DelayInit()
     {
         yield return null;
 
-        if (player == null)
+        if (playerPrefab == null)
         {
-            player = GameObject.FindGameObjectWithTag("Player");
+            playerPrefab = GameObject.FindGameObjectWithTag("Player");
         }
     }
 

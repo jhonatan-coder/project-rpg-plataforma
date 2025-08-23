@@ -9,7 +9,7 @@ public class InstanciarInimigoTrunk : MonoBehaviour
 
     private float tempoDeRespawn = 10f;
     private float tempoAtual = 0;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    // StartFase is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         RespawnEnemy();

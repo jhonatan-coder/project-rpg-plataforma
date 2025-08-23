@@ -3,9 +3,18 @@ using UnityEngine;
 public class AnimacaoCheckpoint : MonoBehaviour
 {
     private Animator animCheckPoint;
-    private void Start()
+    private void Awake()
     {
         animCheckPoint = GetComponent<Animator>();
+
+       
+    }
+    private void Start()
+    {
+        if (animCheckPoint == null)
+        {
+            animCheckPoint = GetComponent<Animator>();
+        }
     }
     public void CheckPointAnimation(bool value)
     {

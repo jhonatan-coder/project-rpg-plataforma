@@ -21,7 +21,7 @@ public class EnemyRockControll : MonoBehaviour
     public LayerMask layerMaskTeto;
 
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    // StartFase is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         rig2D = GetComponent<Rigidbody2D>();

@@ -5,7 +5,7 @@ public class AnimacaoCorrenteSerra : MonoBehaviour
     public bool Angulo90;
     public bool Angulo180;
     [SerializeReference] private Animator animAngulacaoSerra;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    // StartFase is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
     {
         animAngulacaoSerra = GetComponent<Animator>();

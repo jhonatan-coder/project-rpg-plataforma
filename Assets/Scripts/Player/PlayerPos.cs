@@ -1,13 +1,12 @@
-using System.Collections.Generic;
+Ôªøusing System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerPos : MonoBehaviour
 {
     public static PlayerPos instance;
-    private AnimacaoCheckpoint animCheckpoint;
+    [SerializeField]private AnimacaoCheckpoint animCheckpoint;
     private BoxCollider2D boxCol2D;
-    public Dictionary<string, bool> checkpointState = new Dictionary<string, bool>();
-
+    [SerializeField] private GameObject player;
     private string checkpointID;
     void Start()
     {
@@ -15,45 +14,70 @@ public class PlayerPos : MonoBehaviour
         {
             instance = this;
         }
-        animCheckpoint = GetComponent<AnimacaoCheckpoint>();
+        if (player == null)
+        {
+            player = GameObject.FindWithTag("Player");
+        }
+        if (transform.name.Contains("Checkpoint"))
+        {
+            animCheckpoint = GetComponent<AnimacaoCheckpoint>();
+        }
         boxCol2D = GetComponent<BoxCollider2D>();
         checkpointID = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name + "_" + transform.name;
-      
+        
         Debug.Log(checkpointID);
-
-        //Se caso existir a key e essa key j· foi ativada, ent„o sera mantida a animaÁ„o ao iniciar a mesma fase
-        if (SaveSystem.dados.itensAtivados.ContainsKey(checkpointID) && 
-            SaveSystem.dados.itensAtivados[checkpointID] == false)
+        if (transform.name == "PosicaoInicialPlayer")
         {
-            //ja foi ativado antes, desativa o trigger e a animaÁ„o
-            boxCol2D.enabled = false;
-            if (animCheckpoint != null)
+            SaveSystem.dados.posicaoJogador = SerializableVector3.FromVector3(transform.position);
+            player.transform.position = SaveSystem.dados.posicaoJogador.ToVector3();
+        }
+        else
+        {
+            //Se caso existir a key e essa key j√° foi ativada, ent√£o sera mantida a anima√ß√£o ao iniciar a mesma fase
+            if (SaveSystem.dados.checkpointsAtivados.Contains(checkpointID))
             {
+                //ja foi ativado antes, desativa o trigger e a anima√ß√£o
+                boxCol2D.enabled = false;
                 animCheckpoint.CheckPointAnimationPosLoading(true);
+                /*if (animCheckpoint != null)
+                {
+                }*/
             }
         }
+
     }
     
 
-    //salva a posiÁ„o quando player chega na area
+    //salva a posi√ß√£o quando player chega na area
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (!collision.gameObject.CompareTag("Player"))
+        {
+            return;
+        }
+
+        if (transform.name.Contains("Checkpoint") && animCheckpoint != null)
         {
             animCheckpoint.CheckPointAnimation(true);
-
-            string cenaAtual = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
-
-            if (!SaveSystem.dados.cenasVisitadas.Contains(cenaAtual))
-            {
-                SaveSystem.dados.cenasVisitadas.Add(cenaAtual);
-            }
-            SaveSystem.dados.cenaAtual = cenaAtual;
-            SaveSystem.dados.posicaoJogador = SerializableVector3.FromVector3(collision.gameObject.transform.position);
-            SaveSystem.dados.itensAtivados[checkpointID] = false;
-            boxCol2D.enabled = false;
-            SaveSystem.Salvar();
         }
+
+        string cenaAtual = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
+
+        if (!SaveSystem.dados.cenasVisitadas.Contains(cenaAtual))
+        {
+            SaveSystem.dados.cenasVisitadas.Add(cenaAtual);
+        }
+
+        SaveSystem.dados.cenaAtual = cenaAtual;
+        SaveSystem.dados.posicaoJogador = SerializableVector3.FromVector3(collision.transform.position);
+        if (!SaveSystem.dados.checkpointsAtivados.Contains(checkpointID))
+        {
+            SaveSystem.dados.checkpointsAtivados.Add(checkpointID);
+        }
+
+        boxCol2D.enabled = false;
+        SaveSystem.Salvar();
+
     }
 
 }

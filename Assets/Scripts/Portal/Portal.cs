@@ -1,20 +1,31 @@
 using System.Collections;
 using UnityEngine;
 
+[System.Serializable]
+public class ParDePortais
+{
+    public Transform entrada;
+    public Transform saida;
+}
+
+
 public class Portal : MonoBehaviour
 {
     public static Portal instance;
 
-    [SerializeField] private Transform portalSaida;
-    [SerializeField] private Transform portalEntrada;
+    [SerializeField] private ParDePortais[] portais;
     [SerializeField] private Transform player;
 
     private bool noEntrada = false;
     private bool noSaida = false;
+
     private bool podeTeleportar = true;
     private bool controleAtivado = false;
 
+    private ParDePortais portalAtual;
+
     public bool ControleAtivado { get => controleAtivado; set => controleAtivado = value; }
+
 
     private void Awake()
     {
@@ -23,26 +34,31 @@ public class Portal : MonoBehaviour
 
     void Start()
     {
-
-        portalSaida = GameObject.Find("Portal_Saida").GetComponentInChildren<Transform>();
-        portalEntrada = GameObject.Find("Portal_Entrada").GetComponentInChildren<Transform>();
-        player = GameObject.FindWithTag("Player").transform;
+        if (player == null)
+        {
+            player = GameObject.FindWithTag("Player").transform;
+        }
+        else
+        {
+            Debug.LogWarning("Player não encontrado na cena, selecione a tag 'Player'.");
+        }
     }
 
     private void Update()
     {
-        if (ControleAtivado == true)
+        if (ControleAtivado == true && Input.GetKeyDown(KeyCode.E) && podeTeleportar == true && portalAtual != null)
         {
-            if (Input.GetKeyDown(KeyCode.E) && podeTeleportar == true)
+            if (portalAtual.entrada != null && portalAtual.saida != null)
             {
-                if (noEntrada)
+                if (Vector2.Distance(player.position, portalAtual.entrada.position) < 1f)
                 {
-                    StartCoroutine(TeleportarSaida(player, portalSaida));
-
+                    
+                    StartCoroutine(TeleportarSaida(player, portalAtual.saida));
                 }
-                if (noSaida)
+                else if (Vector2.Distance(player.position, portalAtual.saida.position) < 1f)
                 {
-                    StartCoroutine(TeleportarSaida(player, portalEntrada));
+
+                    StartCoroutine(TeleportarSaida(player, portalAtual.entrada));
 
                 }
             }
@@ -50,15 +66,16 @@ public class Portal : MonoBehaviour
         
     }
 
-    public void JogadorNoPortal(PortalTrigger.TipoPortal tipo, bool entrou)
+    public void JogadorNoPortal(Transform portal)
     {
-        if (tipo == PortalTrigger.TipoPortal.Entrada)
+        
+        foreach (var par in portais)
         {
-            noEntrada = entrou;
-        }
-        else if (tipo == PortalTrigger.TipoPortal.Saida)
-        {
-            noSaida = entrou;
+            if (par.entrada == portal || par.saida == portal )
+            {
+                portalAtual = par;
+                break;
+            }
         }
     }
 

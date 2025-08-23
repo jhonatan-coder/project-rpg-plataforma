@@ -24,7 +24,7 @@ public class GameStatus : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         StartCoroutine(DelayInit());
     }
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    // StartFase is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         vidaDoPlayer = FindFirstObjectByType<ControleDeVidaDoPlayer>();
@@ -37,7 +37,6 @@ public class GameStatus : MonoBehaviour
         {
             vidaExtraValue = GameObject.Find("txtVidaExtraValue").GetComponent<TMP_Text>();
         }
-        Debug.Log("Total score salvo: "+SaveSystem.dados.score);
     }
 
     // Update is called once per frame

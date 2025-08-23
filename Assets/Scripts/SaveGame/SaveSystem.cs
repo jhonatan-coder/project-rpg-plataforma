@@ -1,31 +1,23 @@
 using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
-[SerializeField]
 public static class SaveSystem
 {
-    private static string savePath = Application.persistentDataPath + "/save.dat";
+    private static string savePath = Application.persistentDataPath + "/save.json";
     public static SaveData dados = new SaveData();
 
     public static void Salvar()
     {
-        BinaryFormatter bf = new BinaryFormatter();
-        FileStream file = File.Create(savePath);
-        bf.Serialize(file, dados);
-        file.Close();
+        string json = JsonUtility.ToJson(dados, true);
+        File.WriteAllText(savePath, json);
     }
 
     public static void Carregar()
     {
         if (File.Exists(savePath))
         {
-            BinaryFormatter bf = new BinaryFormatter();
-            FileStream file = File.Open(savePath, FileMode.Open);
-            dados = (SaveData)bf.Deserialize(file);
-            file.Close();
-            Debug.Log("[SaveSystem] Carregado! Score: " + dados.score);
+            string json = File.ReadAllText(savePath);
+            dados = JsonUtility.FromJson<SaveData>(json);
         }
         else
         {

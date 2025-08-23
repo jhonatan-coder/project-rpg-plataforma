@@ -129,7 +129,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: b110cfe2801184848b278e03d099aaf1
-      internalID: -1945198534
+      internalID: -8654421302381229280
       vertices: []
       indices: 
       edges: []
@@ -151,7 +151,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 1719b76b17468b241a0a92e6865c11cd
-      internalID: -59179087
+      internalID: 6153966042843050333
       vertices: []
       indices: 
       edges: []
@@ -173,7 +173,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: a063e9c1f90ce88468225df66c2fdc15
-      internalID: -526992075
+      internalID: -5447121974800146096
       vertices: []
       indices: 
       edges: []
@@ -195,7 +195,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: c259724d721e0294b9d227fe9b964264
-      internalID: 588783821
+      internalID: -4098814092678880333
       vertices: []
       indices: 
       edges: []
@@ -214,14 +214,10 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-<<<<<<< HEAD
       Hit (16x32)_0: -8654421302381229280
-=======
-      Hit (16x32)_0: -1945198534
-      Hit (16x32)_1: -59179087
-      Hit (16x32)_2: -526992075
-      Hit (16x32)_3: 588783821
->>>>>>> parent of 592a9a8 (feat: modificado menu inicial.)
+      Hit (16x32)_1: 6153966042843050333
+      Hit (16x32)_2: -5447121974800146096
+      Hit (16x32)_3: -4098814092678880333
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -6,7 +6,6 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public static PlayerController instance;
-    //private GameObject posicaoInicialNovaFase;
 
     [Header("Referências internas")]
     private  PlayerAnimationController _playerAnimationController;
@@ -27,6 +26,8 @@ public class PlayerController : MonoBehaviour
     private float horizontal;
     private bool olhandoDireita;
 
+    
+
     //estados do jogador
     private bool isGrounded;
     private bool isJumping;
@@ -38,13 +39,12 @@ public class PlayerController : MonoBehaviour
     public bool IsJumping { get => isJumping; set => isJumping = value; }
     public bool IsFalling { get => isFalling; set => isFalling = value; }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    // StartFase is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         instance = this;
         playerRig2D = GetComponent<Rigidbody2D>();
         _playerAnimationController = FindFirstObjectByType<PlayerAnimationController>();
-
     }
 
     // Update is called once per frame
