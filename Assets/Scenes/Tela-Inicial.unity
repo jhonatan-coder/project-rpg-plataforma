@@ -4845,14 +4845,14 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2021395257}
         m_TargetAssemblyTypeName: StartGame, Assembly-CSharp
-        m_MethodName: StartFase
+        m_MethodName: ContinuaOJogo
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Fase-01
+          m_StringArgument: Tutorial-Botoes
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1510913664

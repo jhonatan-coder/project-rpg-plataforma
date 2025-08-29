@@ -5,9 +5,10 @@ public class StartGame : MonoBehaviour
 {
     public static bool isNewGame = false;
 
-    public void StartFase(string nameScena)
+    public void PrimeiraVezJogando(string nameScena)
     {
         isNewGame = true;
+
         SaveSystem.DeletarSave();   
         SceneManager.LoadScene(nameScena);
     }
@@ -21,5 +22,17 @@ public class StartGame : MonoBehaviour
     {
         SceneManager.LoadScene(SaveSystem.dados.cenaAtual);
         SaveSystem.Carregar();
+    }
+
+    public void ContinuaOJogo(string nameScena)
+    {
+        isNewGame = true;
+        SaveSystem.DeletarSave();
+        SceneManager.LoadScene(nameScena);
+    }
+
+    public void SairDoJogo()
+    {
+        Application.Quit();
     }
 }

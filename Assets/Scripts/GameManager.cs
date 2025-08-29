@@ -1,18 +1,55 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     private static GameManager instance;
-
-    public GameObject canvasPrefab;
     public GameObject playerPrefab;
 
     private GameObject playerInstance;
-    private GameObject canvasInstance;
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
 
-    // StartFase is called once before the first execution of Update after the MonoBehaviour is created
-    void Awake()
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        playerInstance = GameObject.FindGameObjectWithTag("Player");
+
+        if (playerInstance == null && playerPrefab != null)
+        {
+            playerInstance = Instantiate(playerPrefab, SaveSystem.dados.posicaoJogador.ToVector3(), Quaternion.identity);
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // PrimeiraVezJogando is called once before the first execution of Update after the MonoBehaviour is created
+    /*void Awake()
     {
         //previne de haver duplicatas
         if (instance != null && instance != this)
@@ -40,12 +77,6 @@ public class GameManager : MonoBehaviour
                 playerInstance = Instantiate(playerPrefab, SaveSystem.dados.posicaoJogador.ToVector3(), Quaternion.identity);
             }
         }
-
-        if (canvasInstance == null && canvasPrefab != null)
-        {
-            canvasInstance = Instantiate(canvasPrefab);
-            DontDestroyOnLoad(canvasInstance);
-        }
     }
 
     private IEnumerator DelayInit()
@@ -56,6 +87,6 @@ public class GameManager : MonoBehaviour
         {
             playerPrefab = GameObject.FindGameObjectWithTag("Player");
         }
-    }
+    }*/
 
 }

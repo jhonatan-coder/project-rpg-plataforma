@@ -17,7 +17,7 @@ public class DesligaArmadilha : MonoBehaviour
 
     private bool ativado;
     private bool isClicado = true;
-    // StartFase is called once before the first execution of Update after the MonoBehaviour is created
+    // PrimeiraVezJogando is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         var fogos = GetComponentsInChildren<Transform>(true);

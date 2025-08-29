@@ -7,7 +7,7 @@ public class ControleFrutas : MonoBehaviour
 
     private string itemID;
     public int pontos;
-    // StartFase is called once before the first execution of Update after the MonoBehaviour is created
+    // PrimeiraVezJogando is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         animFruits = GetComponent<Animator>();

@@ -41,7 +41,9 @@ public class EnemyTrunkController : MonoBehaviour
 
     [HideInInspector] public InstanciarInimigoTrunk instanciador;
 
-    // StartFase is called once before the first execution of Update after the MonoBehaviour is created
+    public bool IsMorreu { get => isMorreu; set => isMorreu = value; }
+
+    // PrimeiraVezJogando is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         estadoAtual = EstadoDoInimigo.Patrulhando;
@@ -58,7 +60,7 @@ public class EnemyTrunkController : MonoBehaviour
         podeAtirar = true;
 
         levandoDano = false;
-        isMorreu = false;
+        IsMorreu = false;
         if (posicoes != null && posicoes.Length > 0)
         {
             inicializado = true;
@@ -84,7 +86,7 @@ public class EnemyTrunkController : MonoBehaviour
                 inimigoCaminhando = false;          
                 break;
             case EstadoDoInimigo.Esperando:
-                if (isMorreu == false) { VerificaVisibilidadePlayer(); }
+                if (IsMorreu == false) { VerificaVisibilidadePlayer(); }
                 inimigoCaminhando = false;
                 atacando = false;
                 break;
@@ -144,7 +146,7 @@ public class EnemyTrunkController : MonoBehaviour
 
     public void VerificaVisibilidadePlayer()
     {
-        if (isMorreu == true)
+        if (IsMorreu == true)
         {
             return;
         }

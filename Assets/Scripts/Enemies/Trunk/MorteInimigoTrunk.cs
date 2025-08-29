@@ -7,14 +7,17 @@ public class MorteInimigoTrunk : MonoBehaviour
     private bool levaDano;
 
     private EnemyAnimations _enemyAnimation;
+    private BoxCollider2D box2D;
     [SerializeField] private EnemyTrunkController _enemyControll;
 
     private void Start()
     {
         _enemyControll = GetComponentInParent<EnemyTrunkController>();
         _enemyAnimation = GetComponentInParent<EnemyAnimations>();
+        box2D = GetComponent<BoxCollider2D>();
+        box2D.enabled = true;
         levaDano = false;
-        vidaInimigo = 2;
+        vidaInimigo = 1;
         _enemyControll.vidaInimigo = Mathf.Max(vidaInimigo, 0);
     }
 
@@ -32,16 +35,9 @@ public class MorteInimigoTrunk : MonoBehaviour
             }
 
             StartCoroutine(TempoDeDano());
-            if (vidaInimigo <= 0)
-            {
-                vidaInimigo = 0;
-                Destroy(_enemyControll.gameObject);
-
-
-            }
+            
         }
     }
-
 
     IEnumerator TempoDeDano()
     {
@@ -50,9 +46,15 @@ public class MorteInimigoTrunk : MonoBehaviour
         levaDano = true;
         vidaInimigo--;
         _enemyAnimation.AnimacaoDeHit("isHit");
-        Debug.Log("prefabDoInimigo levou dano");
-        yield return new WaitForSeconds(2f);
+        if (vidaInimigo <= 0)
+        {
+            vidaInimigo = 0;
 
+            _enemyAnimation.AnimacaoDeMorte();
+            box2D.enabled = false;
+            _enemyControll.IsMorreu = true;
+        }
+        yield return new WaitForSeconds(0.333f);
         levaDano = false;
     }
 

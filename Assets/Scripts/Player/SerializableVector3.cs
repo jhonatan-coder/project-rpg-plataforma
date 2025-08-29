@@ -7,7 +7,7 @@ public struct SerializableVector3
     public float posX;
     public float posY;
     public float posZ;
-    // StartFase is called once before the first execution of Update after the MonoBehaviour is created
+    // PrimeiraVezJogando is called once before the first execution of Update after the MonoBehaviour is created
 
     public SerializableVector3(float rX, float rY, float rZ)
     {

@@ -5,14 +5,14 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Tela-de-Splash.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
   - enabled: 1
     path: Assets/Scenes/Tela-Inicial.unity
     guid: 32f555dafcb780443897d5f1ebfbe283
   - enabled: 1
-    path: Assets/Scenes/Load.unity
+    path: Assets/Scenes/Tutorial-Botoes.unity
     guid: 64464bdec409f1a40818e3e539309d09
   - enabled: 1
     path: Assets/Scenes/Fase-01.unity
@@ -22,10 +22,16 @@ EditorBuildSettings:
     guid: 54e4502abd2414241864c99d11a010af
   - enabled: 1
     path: Assets/Scenes/Fase-03.unity
-    guid: 599351d4735bbc043a65f994c5d4b8ef
+    guid: f11cc8f0e9eaac147b03f6c29c49191c
+  - enabled: 1
+    path: Assets/Scenes/Fase-04.unity
+    guid: 621cf96d7d503444994cb9ef550a9463
   - enabled: 1
     path: Assets/Scenes/GameOver.unity
     guid: e1796d3e36df62b4f894151928754709
+  - enabled: 1
+    path: Assets/Scenes/Final.unity
+    guid: 7f22056a8d70b754e887f44f12b418dd
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

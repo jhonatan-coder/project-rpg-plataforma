@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class DetectaChao : MonoBehaviour
 {
-    // StartFase is called once before the first execution of Update after the MonoBehaviour is created
+    // PrimeiraVezJogando is called once before the first execution of Update after the MonoBehaviour is created
     public PlayerController _playerController;
     private void Start()
     {

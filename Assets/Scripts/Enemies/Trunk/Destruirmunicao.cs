@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Destruirmunicao : MonoBehaviour
+public class DestruirMunicao : MonoBehaviour
 {
     private EnemyAnimations _enemyAnimations;
     private void Start()

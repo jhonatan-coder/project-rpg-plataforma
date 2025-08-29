@@ -9,7 +9,7 @@ public class ControleSerra : MonoBehaviour
 
     private int indexAtual = 0;
     private int direcao = 1;
-    // StartFase is called once before the first execution of Update after the MonoBehaviour is created
+    // PrimeiraVezJogando is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         var componentes = GetComponentsInChildren<Transform>();

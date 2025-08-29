@@ -39,7 +39,7 @@ public class PlayerController : MonoBehaviour
     public bool IsJumping { get => isJumping; set => isJumping = value; }
     public bool IsFalling { get => isFalling; set => isFalling = value; }
 
-    // StartFase is called once before the first execution of Update after the MonoBehaviour is created
+    // PrimeiraVezJogando is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         instance = this;
@@ -52,14 +52,19 @@ public class PlayerController : MonoBehaviour
     {
         if (ControleDeVidaDoPlayer.instance.IsDeath == false)
         {
-            ColidindoComChao();
-            Movimentar();
             if (Input.GetButtonDown("Jump"))
             {
                 Pulando();
             }
-
             Caindo();
+        }
+    }
+    void FixedUpdate()
+    {
+        if (ControleDeVidaDoPlayer.instance.IsDeath == false)
+        {
+            ColidindoComChao();
+            Movimentar();
         }
         
     }
@@ -181,7 +186,6 @@ public class PlayerController : MonoBehaviour
             //zera a velocidade do Y antes de aplicar 
             playerRig2D.linearVelocity = new Vector2(playerRig2D.linearVelocity.x, 0f);
             playerRig2D.AddForce(Vector2.up * trampolimForce, ForceMode2D.Impulse);
-            Debug.Log("Encostou no prefabDoInimigo");
 
         }
     }

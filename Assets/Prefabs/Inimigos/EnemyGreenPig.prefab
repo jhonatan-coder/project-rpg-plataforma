@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 8613054350689976548}
   m_Layer: 0
   m_Name: EnemyGreenPig
-  m_TagString: Untagged
+  m_TagString: EnemyPig
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -205,11 +205,11 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3205081951180268881}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 15
+  m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_GravityScale: 1
@@ -273,6 +273,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 842af4c4ab63b28428e398586a16d684, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rig2d: {fileID: 9128845925067485083}
+  col2D: {fileID: 4088469404701343519}
+  sprite: {fileID: 8267104862190746681}
 --- !u!114 &8613054350689976548
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -285,6 +288,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6146165befb6e174f8d3352a8804182b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _playerController: {fileID: 0}
   rayCastLine: {fileID: 72872365027811067}
   posicoes:
   - {fileID: 0}

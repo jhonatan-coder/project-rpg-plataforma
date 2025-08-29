@@ -7,8 +7,11 @@ public class ArmadilhasAtivadas : MonoBehaviour
     public SpriteRenderer[] spriteFogo;
     public CapsuleCollider2D[] colisoresFogo;
 
+    [SerializeField] private float tempoDeAtivarFogo; // controla em quanto tempo vai aparecer a chama
+    [SerializeField] private float tempoDeDesativarFogo; // controla em quanto tempo vai desaparecer a chama
+
     private float time;
-    // StartFase is called once before the first execution of Update after the MonoBehaviour is created
+    // PrimeiraVezJogando is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         var fogos = GetComponentsInChildren<Transform>();
@@ -53,9 +56,9 @@ public class ArmadilhasAtivadas : MonoBehaviour
         while (true)
         {
             ArmadilhaAtivada();
-            yield return new WaitForSeconds(5f);
+            yield return new WaitForSeconds(tempoDeDesativarFogo);
             ArmadilhaDesativada();
-            yield return new WaitForSeconds(5f);
+            yield return new WaitForSeconds(tempoDeAtivarFogo);
         }        
     }
 

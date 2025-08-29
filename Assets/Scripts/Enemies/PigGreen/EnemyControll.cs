@@ -14,7 +14,7 @@ public enum EstadoDoInimigo
 public class EnemyControll : MonoBehaviour
 {
     private EnemyAnimations enemyAnim;
-    private PlayerController _playerController;
+    [SerializeField] private PlayerController _playerController;
     private Rigidbody2D inimigo;
 
     //private MorteInimigos _morteInimigos;
@@ -46,29 +46,35 @@ public class EnemyControll : MonoBehaviour
     private bool inicializado = false;
 
     private bool pausaIniciada = false;
+    private bool isMorreu;
 
     private EstadoDoInimigo estadoAtual;
 
     [HideInInspector] public InstanciarInimigo instanciador;
-    // StartFase is called once before the first execution of Update after the MonoBehaviour is created
+
+    public bool IsMorreu { get => isMorreu; set => isMorreu = value; }
+
+    // PrimeiraVezJogando is called once before the first execution of Update after the MonoBehaviour is created
     private void Awake()
     {
         enemyAnim = GetComponent<EnemyAnimations>();
         if (enemyAnim == null)
         {
-            Debug.LogWarning($"{name} não tem EnemyAnimations!");
             return;
         }
     }
     void Start()
     {
-        _playerController = FindFirstObjectByType<PlayerController>();
+        if (_playerController == null)
+        {
+            _playerController = GameObject.FindGameObjectWithTag("Player")?.GetComponent<PlayerController>();
+        }
         inimigo = GetComponent<Rigidbody2D>();
         estadoAtual = EstadoDoInimigo.Patrulhando;
         indiceDestinoAtual = 1;
         inimigoCaminhando = true;
         inimigoCorrendo = false;
-
+        IsMorreu = false;
         if (limiteCantoDireito != null && limiteCantoEsquerdo != null && posicoes != null && posicoes.Length > 0)
         {
             inicializado = true;
@@ -80,6 +86,11 @@ public class EnemyControll : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //serve para impedir de sobrescrever o force do
+        if (IsMorreu == true)
+        {
+            return;
+        }
         if(!inicializado)
         {
             return;
@@ -88,21 +99,24 @@ public class EnemyControll : MonoBehaviour
         switch (estadoAtual)
         {
             case EstadoDoInimigo.Patrulhando:
-                MovimentoDoInimigo();
-                IdentificarPlayer();
-                areaDeAcertoNoPlayer.gameObject.SetActive(false);
-                inimigoCaminhando = true;
-                inimigoCorrendo = false;
+                    IdentificarPlayer();
+                    MovimentoDoInimigo();
+                    areaDeAcertoNoPlayer.gameObject.SetActive(false);
+                    inimigoCaminhando = true;
+                    inimigoCorrendo = false;
+                
                 break;
             case EstadoDoInimigo.Perseguindo:
-                StartCoroutine(IniciarAtaqueNoPlayer());
-                IdentificarPlayer();
-                inimigoCaminhando = false;
-                inimigoCorrendo = true;
+                    StartCoroutine(IniciarAtaqueNoPlayer());
+                    IdentificarPlayer();
+                    inimigoCaminhando = false;
+                    inimigoCorrendo = true;
+                
                 break;
             case EstadoDoInimigo.Esperando:
-                inimigoCaminhando = false;
-                inimigoCorrendo = false;
+                    inimigoCaminhando = false;
+                    inimigoCorrendo = false;
+                    inimigo.linearVelocity = Vector2.zero;
                 break;
         }               
         
@@ -117,14 +131,16 @@ public class EnemyControll : MonoBehaviour
         {
             return;
         }
-
-        enemyAnim.AnimacaoDeCaminhada(inimigoCaminhando);
-        enemyAnim.AnimacaoDeCorrida(inimigoCorrendo);
+        if (IsMorreu == false)
+        {
+            enemyAnim.AnimacaoDeCaminhada(inimigoCaminhando);
+            enemyAnim.AnimacaoDeCorrida(inimigoCorrendo);
+        }
     }
 
     public void MovimentoDoInimigo()
     {
-        if (estadoAtual == EstadoDoInimigo.Esperando)
+        if (estadoAtual == EstadoDoInimigo.Esperando || IsMorreu == true)
         {
             inimigo.linearVelocity = Vector2.zero;
             return;
@@ -134,7 +150,7 @@ public class EnemyControll : MonoBehaviour
         inimigo.linearVelocity = direcao * velocidadeInimigo;
 
         float distancia = Vector2.Distance(transform.position, posicoes[indiceDestinoAtual].position);
-        //float distanciaX = Mathf.Abs(transform.position.x - posicoes[indiceDestinoAtual].position.x);
+        //float distanciaY = Mathf.Abs(transform.position.y - posicoes[indiceDestinoAtual].position.y);
         if (distancia <= 0.01f && !pausaIniciada)
         {
 
@@ -147,6 +163,10 @@ public class EnemyControll : MonoBehaviour
     //Identifica o player e Ataca
     public void IdentificarPlayer()
     {
+        if (IsMorreu == true)
+        {
+            return;
+        }
         if (_playerController != null)
         {
             //Essas três variaveis irão determinar o limite em que o player pode ser eprseguido
@@ -195,7 +215,6 @@ public class EnemyControll : MonoBehaviour
     {
         estadoAtual = EstadoDoInimigo.Esperando;
 
-
         yield return new WaitForSeconds(2f);
         indiceDestinoAtual++;
         if (indiceDestinoAtual == posicoes.Length)
@@ -215,23 +234,26 @@ public class EnemyControll : MonoBehaviour
             yield break;
         }
 
-        //Rigidbody2D enemy = prefabDoInimigo.GetComponent<Rigidbody2D>();
         inimigo.linearVelocity = Vector2.zero;
         yield return new WaitForSeconds(0.5f);
-        Vector2 direcaoPlayer = (_playerController.transform.position - transform.position).normalized;
+        if (_playerController != null)
+        {
+            Vector2 direcaoPlayer = (_playerController.transform.position - transform.position).normalized;
+
+            float posXPlayer = _playerController.transform.position.x;
+            float limiteDireita = limiteCantoDireito.position.x;
+            float limiteEsquerda = limiteCantoEsquerdo.position.x;
+            if (posXPlayer >= limiteEsquerda && posXPlayer <= limiteDireita)
+            {
+                inimigo.linearVelocity = new Vector2(direcaoPlayer.x * (velocidadeInimigo + 0.4f), 0);
+                areaDeAcertoNoPlayer.gameObject.SetActive(true);
+            }
+            else
+            {
+                estadoAtual = EstadoDoInimigo.Patrulhando;
+            }
+        }
         
-        float posXPlayer = _playerController.transform.position.x;
-        float limiteDireita = limiteCantoDireito.position.x;
-        float limiteEsquerda = limiteCantoEsquerdo.position.x;
-        if (posXPlayer >= limiteEsquerda && posXPlayer <= limiteDireita)
-        {
-            inimigo.linearVelocity = new Vector2(direcaoPlayer.x * (velocidadeInimigo + 0.4f), 0);
-            areaDeAcertoNoPlayer.gameObject.SetActive(true);
-        }
-        else
-        {
-            estadoAtual = EstadoDoInimigo.Patrulhando;        
-        }
 
         
     }

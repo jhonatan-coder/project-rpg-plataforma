@@ -1,6 +1,8 @@
 using UnityEngine;
 using TMPro;
 using System.Collections;
+using UnityEngine.SceneManagement;
+using UnityEngine.Video;
 
 public class GameStatus : MonoBehaviour
 {
@@ -8,7 +10,6 @@ public class GameStatus : MonoBehaviour
 
     private ControlePontos _controlePontos;
 
-    private ControleDeVidaDoPlayer vidaDoPlayer;
     [SerializeField]private TMP_Text scoreValue;
     [SerializeField]private TMP_Text vidaExtraValue;
 
@@ -24,18 +25,34 @@ public class GameStatus : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         StartCoroutine(DelayInit());
     }
-    // StartFase is called once before the first execution of Update after the MonoBehaviour is created
+    // PrimeiraVezJogando is called once before the first execution of Update after the MonoBehaviour is created
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+/*    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scoreValue == null)
+            scoreValue = GameObject.Find("txtScoreValue")?.GetComponent<TMP_Text>();
+        if (vidaExtraValue == null)
+            vidaExtraValue = GameObject.Find("txtVidaExtraValue")?.GetComponent<TMP_Text>();
+    }*/
     void Start()
     {
-        vidaDoPlayer = FindFirstObjectByType<ControleDeVidaDoPlayer>();
-        _controlePontos = FindFirstObjectByType<ControlePontos>();
+        _controlePontos = GetComponent<ControlePontos>();
         if (scoreValue == null)
         {
-            scoreValue = GameObject.Find("txtScoreValue").GetComponent<TMP_Text>();
+            scoreValue = GameObject.Find("txtScoreValue")?.GetComponent<TMP_Text>();
         }
         if (vidaExtraValue == null)
         {
-            vidaExtraValue = GameObject.Find("txtVidaExtraValue").GetComponent<TMP_Text>();
+            vidaExtraValue = GameObject.Find("txtVidaExtraValue")?.GetComponent<TMP_Text>();
         }
     }
 
@@ -54,11 +71,50 @@ public class GameStatus : MonoBehaviour
 
     public void VidaExtra()
     {
-        vidaExtraValue.text = vidaDoPlayer.life.ToString();
+        if (ControleDeVidaDoPlayer.instance != null)
+        {
+            vidaExtraValue.text = ControleDeVidaDoPlayer.instance.life.ToString();
+        }
+        else
+        {
+            vidaExtraValue.text = SaveSystem.dados.vidasExtras.ToString();
+        }
     }
 
     private IEnumerator DelayInit()
     {
         yield return null;
+        if (scoreValue == null)
+        {
+            scoreValue = GameObject.Find("txtScoreValue")?.GetComponent<TMP_Text>();
+        }
+        if (vidaExtraValue == null)
+        {
+            vidaExtraValue = GameObject.Find("txtVidaExtraValue")?.GetComponent<TMP_Text>();
+        }
     }
+
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scoreValue == null)
+        {
+            scoreValue = GameObject.Find("txtScoreValue")?.GetComponent<TMP_Text>();
+        }
+        if (vidaExtraValue == null)
+        {
+            vidaExtraValue = GameObject.Find("txtVidaExtraValue")?.GetComponent<TMP_Text>();
+        }
+
+        if (ControleDeVidaDoPlayer.instance == null)
+        {
+            var vidaObj = FindFirstObjectByType<ControleDeVidaDoPlayer>();
+            if (vidaObj != null)
+            {
+                ControleDeVidaDoPlayer.instance = vidaObj;
+            }
+        }
+    }
+
+
 }
