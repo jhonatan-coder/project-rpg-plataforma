@@ -43,6 +43,20 @@ public class EnemyAnimations : MonoBehaviour
         anim.SetBool("isRun", value);
     }
 
+    public void AnimacaoShellWall(bool value)
+    {
+        anim.SetBool("isWallHit", value);
+    }
+    public void AnimacaoParado(bool value)
+    {
+        anim.SetBool("isIdle", value);
+    }
+
+    public void AnimacaoTopHit(string value)
+    {
+        anim.SetTrigger(value);
+    }
+
     public void AnimacaoDeHit(string value)
     {
         anim.SetTrigger(value);
@@ -58,10 +72,6 @@ public class EnemyAnimations : MonoBehaviour
         anim.SetTrigger(value);
     }
 
-    public void AnimacaoParado(bool value)
-    {
-        anim.SetBool("isIdle", value);
-    }
 
     public void AnimacaoDeMorte()
     {
@@ -79,8 +89,8 @@ public class EnemyAnimations : MonoBehaviour
         rig2d.bodyType = RigidbodyType2D.Dynamic;
         rig2d.linearVelocity = new Vector2(rig2d.linearVelocityX, 0f);
         rig2d.AddForce(Vector2.up * 2.5f, ForceMode2D.Impulse);
-        //rig2d.freezeRotation = true;
-        //rig2d.gravityScale = 1;
+        rig2d.freezeRotation = true;
+        rig2d.gravityScale = 1;
 
         float tempo = 0f;
         float duracao = 0.8f;

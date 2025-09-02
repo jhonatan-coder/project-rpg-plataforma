@@ -8,8 +8,6 @@ public class GameStatus : MonoBehaviour
 {
     private static GameStatus instance;
 
-    private ControlePontos _controlePontos;
-
     [SerializeField]private TMP_Text scoreValue;
     [SerializeField]private TMP_Text vidaExtraValue;
 
@@ -25,7 +23,7 @@ public class GameStatus : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         StartCoroutine(DelayInit());
     }
-    // PrimeiraVezJogando is called once before the first execution of Update after the MonoBehaviour is created
+
     private void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
@@ -35,17 +33,8 @@ public class GameStatus : MonoBehaviour
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
-
-/*    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        if (scoreValue == null)
-            scoreValue = GameObject.Find("txtScoreValue")?.GetComponent<TMP_Text>();
-        if (vidaExtraValue == null)
-            vidaExtraValue = GameObject.Find("txtVidaExtraValue")?.GetComponent<TMP_Text>();
-    }*/
     void Start()
     {
-        _controlePontos = GetComponent<ControlePontos>();
         if (scoreValue == null)
         {
             scoreValue = GameObject.Find("txtScoreValue")?.GetComponent<TMP_Text>();

@@ -17,7 +17,7 @@ public class MorteInimigos : MonoBehaviour
         box2D = GetComponent<BoxCollider2D>();
         box2D.enabled = true;
         levaDano = false;
-        vidaInimigo = 2;
+        vidaInimigo = 1;
         _enemyControll.vidaInimigo = Mathf.Max(vidaInimigo, 0);
     }
 

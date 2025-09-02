@@ -128,10 +128,10 @@ TextureImporter:
       name: Shell Top Hit (38x24)_0
       rect:
         serializedVersion: 2
-        x: 6
+        x: 0
         y: 0
-        width: 29
-        height: 17
+        width: 38
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -150,10 +150,10 @@ TextureImporter:
       name: Shell Top Hit (38x24)_1
       rect:
         serializedVersion: 2
-        x: 44
+        x: 38
         y: 0
-        width: 29
-        height: 17
+        width: 38
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -172,10 +172,10 @@ TextureImporter:
       name: Shell Top Hit (38x24)_2
       rect:
         serializedVersion: 2
-        x: 82
+        x: 76
         y: 0
-        width: 29
-        height: 19
+        width: 38
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -194,10 +194,10 @@ TextureImporter:
       name: Shell Top Hit (38x24)_3
       rect:
         serializedVersion: 2
-        x: 121
+        x: 114
         y: 0
-        width: 27
-        height: 20
+        width: 38
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -216,10 +216,10 @@ TextureImporter:
       name: Shell Top Hit (38x24)_4
       rect:
         serializedVersion: 2
-        x: 160
+        x: 152
         y: 0
-        width: 25
-        height: 21
+        width: 38
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -238,7 +238,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 12a4b927590b07f4c8c37584bc162dfe
     internalID: 0
     vertices: []
     indices: 
@@ -247,7 +247,12 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Shell Top Hit (38x24)_0: -8403565479375483712
+      Shell Top Hit (38x24)_1: -3263361147463627205
+      Shell Top Hit (38x24)_2: 8050039488083966008
+      Shell Top Hit (38x24)_3: 4135966729065973958
+      Shell Top Hit (38x24)_4: 6896428290230586808
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

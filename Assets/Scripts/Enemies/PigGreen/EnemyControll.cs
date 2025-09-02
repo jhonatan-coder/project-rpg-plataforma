@@ -163,10 +163,10 @@ public class EnemyControll : MonoBehaviour
     //Identifica o player e Ataca
     public void IdentificarPlayer()
     {
-        if (IsMorreu == true)
+        /*if (IsMorreu == true)
         {
             return;
-        }
+        }*/
         if (_playerController != null)
         {
             //Essas três variaveis irão determinar o limite em que o player pode ser eprseguido

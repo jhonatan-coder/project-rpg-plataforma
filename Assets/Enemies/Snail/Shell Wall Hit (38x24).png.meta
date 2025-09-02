@@ -125,20 +125,20 @@ TextureImporter:
       name: Shell Wall Hit (38x24)_0
       rect:
         serializedVersion: 2
-        x: 11
+        x: 0
         y: 0
-        width: 19
-        height: 23
+        width: 38
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 81dfcd29559bcdea0800000000000000
-      internalID: -5846594439046431464
+      spriteID: f5d686ae3a635b24598c005b1fd039c3
+      internalID: -509523952
       vertices: []
       indices: 
       edges: []
@@ -147,20 +147,20 @@ TextureImporter:
       name: Shell Wall Hit (38x24)_1
       rect:
         serializedVersion: 2
-        x: 49
+        x: 38
         y: 0
-        width: 19
-        height: 23
+        width: 38
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 9ff7abbbfaf830bc0800000000000000
-      internalID: -3818050074148438023
+      spriteID: 1b9a76a1724779047a010cffeae16e7a
+      internalID: -1206951265
       vertices: []
       indices: 
       edges: []
@@ -169,20 +169,20 @@ TextureImporter:
       name: Shell Wall Hit (38x24)_2
       rect:
         serializedVersion: 2
-        x: 86
+        x: 76
         y: 0
-        width: 21
-        height: 23
+        width: 38
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: a91812a739f7b54e0800000000000000
-      internalID: -1991858138795376230
+      spriteID: e6302d261a4385a4fa30b10d44b5091b
+      internalID: 1956186576
       vertices: []
       indices: 
       edges: []
@@ -191,20 +191,20 @@ TextureImporter:
       name: Shell Wall Hit (38x24)_3
       rect:
         serializedVersion: 2
-        x: 123
+        x: 114
         y: 0
-        width: 23
-        height: 22
+        width: 38
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 9603d55be8d879c30800000000000000
-      internalID: 4366114007826641001
+      spriteID: 07d75979833c5034c91b98ad028e06e8
+      internalID: -818395708
       vertices: []
       indices: 
       edges: []
@@ -213,7 +213,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 6bfdc5bb552923147b76bbc32285f4e0
     internalID: 0
     vertices: []
     indices: 
@@ -222,7 +222,11 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Shell Wall Hit (38x24)_0: -509523952
+      Shell Wall Hit (38x24)_1: -1206951265
+      Shell Wall Hit (38x24)_2: 1956186576
+      Shell Wall Hit (38x24)_3: -818395708
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

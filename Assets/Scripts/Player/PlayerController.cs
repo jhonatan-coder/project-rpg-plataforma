@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour
     [Header("Configuração de movimentos")]
     public float velocidadePlayer;
     public float forcaPuloPlayer;
+    public float forcaPuloDuploPlayer;
     public float trampolimForce;
     [Header("Controle de movimentos")]
     private float horizontal;
@@ -113,7 +114,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (isDoubleJumping == true)
         {
-            playerRig2D.AddForce(Vector2.up * forcaPuloPlayer, ForceMode2D.Impulse);
+            playerRig2D.AddForce(Vector2.up * forcaPuloDuploPlayer, ForceMode2D.Impulse);
             StartCoroutine(PuloDuplo());
             isDoubleJumping = false;
         }

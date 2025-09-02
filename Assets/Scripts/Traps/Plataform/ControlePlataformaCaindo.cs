@@ -12,6 +12,8 @@ public class ControlePlataformaCaindo : MonoBehaviour
 
     private Coroutine corrotinaAtual;
 
+    public float tempoDeEspera; //Tempo para esperar até a plataforma cair
+
     // PrimeiraVezJogando is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -57,7 +59,7 @@ public class ControlePlataformaCaindo : MonoBehaviour
     {
         Debug.LogError("Começou a Subir");
 
-        //desativa a renderização e o collider um trigger para evitar colisões ao subir
+        //desativa o sprite e o box collider para trigger para evitar colisões ao subir
         plataforma.GetComponent<SpriteRenderer>().enabled = false;
         plataforma.GetComponent<BoxCollider2D>().isTrigger = true;
 

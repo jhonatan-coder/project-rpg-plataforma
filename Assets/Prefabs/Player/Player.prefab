@@ -47,7 +47,6 @@ GameObject:
   - component: {fileID: 8207357541075016010}
   - component: {fileID: 7925501688865375407}
   - component: {fileID: 4400430922117405306}
-  - component: {fileID: 7492131380914987085}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -233,7 +232,8 @@ MonoBehaviour:
   chaoB: {fileID: 322140543050538478}
   tamanhoRayCast: 0.1
   velocidadePlayer: 60
-  forcaPuloPlayer: 2.5
+  forcaPuloPlayer: 2
+  forcaPuloDuploPlayer: 3
   trampolimForce: 4
 --- !u!114 &7925501688865375407
 MonoBehaviour:
@@ -260,20 +260,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   life: 3
---- !u!114 &7492131380914987085
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1425841711916951737}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b497274a352ce04486a9153c2ea245e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spawnInicial: {fileID: 0}
-  playerPrefab: {fileID: 1425841711916951737}
 --- !u!1 &2110716578055547986
 GameObject:
   m_ObjectHideFlags: 0
